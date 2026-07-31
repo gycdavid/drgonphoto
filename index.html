@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#F8F8F6">
+<title>龙创AI — Visual Arts & Photography</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--bg-base:#F8F8F6;--text-primary:#1A1A1A;--text-secondary:#8A8A8A;--border-gray:#EAEAEA;--highlight-blue:#3A648C;--card-shadow:rgba(0,0,0,0.06);--radius:16px;--card-gap:18px}
+html{font-size:16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+body{font-family:-apple-system,'SF Pro Text','Helvetica Neue','Roboto',sans-serif;background:var(--bg-base);color:var(--text-primary);line-height:1.5;overflow-x:hidden;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)}
+.app-shell{max-width:430px;margin:0 auto;min-height:100vh;background:var(--bg-base);position:relative}
+.page{display:none;min-height:100vh;padding-bottom:80px}
+.page.active{display:block}
+.top-nav{position:sticky;top:0;z-index:100;background:rgba(248,248,246,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border-gray);padding:10px 16px;display:flex;align-items:center;justify-content:space-between}
+.top-nav .brand{font-size:22px;font-weight:700;letter-spacing:1px;color:var(--text-primary)}
+.top-nav .nav-icons{display:flex;gap:20px;align-items:center}
+.top-nav .nav-icons svg{width:22px;height:22px;stroke:var(--text-primary);stroke-width:1.8;fill:none;cursor:pointer;transition:transform 0.15s ease}
+.top-nav .nav-icons svg:active{transform:scale(0.92)}
+.search-bar{padding:12px 16px 8px;display:flex;gap:10px;align-items:center}
+.search-input{flex:1;background:#F0F0EE;border:none;border-radius:12px;padding:10px 16px;font-size:14px;color:var(--text-primary);outline:none;font-family:inherit}
+.search-input::placeholder{color:var(--text-secondary)}
+.search-btn{background:none;border:none;padding:8px;cursor:pointer}
+.search-btn svg{width:20px;height:20px;stroke:var(--text-secondary);stroke-width:1.8;fill:none}
+.category-chips{display:flex;gap:8px;overflow-x:auto;padding:8px 16px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.category-chips::-webkit-scrollbar{display:none}
+.chip{flex-shrink:0;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;transition:all 0.2s ease;border:1px solid var(--border-gray);color:var(--text-secondary);background:transparent}
+.chip.active{background:var(--text-primary);color:#fff;border-color:var(--text-primary)}
+.story-bar{display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;padding:16px 16px 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none;background:var(--bg-base);border-bottom:0.5px solid var(--border-gray)}
+.story-bar::-webkit-scrollbar{display:none}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;cursor:pointer;width:76px}
+.story-ring{width:72px;height:72px;border-radius:50%;padding:2px;display:flex;align-items:center;justify-content:center;transition:transform 0.15s ease;position:relative}
+.story-ring.active{background:linear-gradient(135deg,#3A648C,#5A8AAD)}
+.story-ring.inactive{background:var(--border-gray)}
+.story-ring.my-story{background:transparent;border:2px dashed var(--border-gray)}
+.story-ring:active{transform:scale(0.95)}
+.story-ring .sa{width:64px;height:64px;border-radius:50%;border:2.5px solid var(--bg-base);object-fit:cover;background:#ddd;display:block}
+.story-ring.my-story .sa{border:none;width:68px;height:68px}
+.story-ring .add-badge{position:absolute;bottom:0;right:0;width:22px;height:22px;background:var(--highlight-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;border:2.5px solid var(--bg-base)}
+.story-ring .add-badge svg{width:12px;height:12px;stroke:#fff;stroke-width:2.5;fill:none}
+.story-label{font-size:10px;font-weight:300;color:var(--text-secondary);text-align:center;line-height:14px;max-width:76px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.feed{padding:0 16px}
+.feed-card{margin-bottom:var(--card-gap);border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:0 3px 8px var(--card-shadow);transition:transform 0.15s ease}
+.feed-card:active{transform:scale(0.985)}
+.card-image-wrapper{width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;background:#f0f0f0;position:relative}
+.card-image{width:100%;height:100%;object-fit:cover;display:block}
+.card-image-gradient{position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to bottom,transparent,rgba(0,0,0,0.15));pointer-events:none}
+.card-content{padding:14px 16px 16px}
+.card-title{font-size:18px;font-weight:700;line-height:24px;color:var(--text-primary);margin-bottom:6px;letter-spacing:-0.2px}
+.card-subtitle{font-size:14px;font-weight:400;line-height:20px;color:var(--text-secondary);margin-bottom:14px}
+.card-author-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.author-info{display:flex;align-items:center;gap:8px}
+.author-avatar{width:28px;height:28px;border-radius:50%;object-fit:cover;background:#ddd}
+.author-name{font-size:12px;font-weight:500;color:var(--text-primary);line-height:16px}
+.author-tag{font-size:11px;font-weight:300;color:var(--text-secondary);line-height:14px}
+.card-meta{display:flex;align-items:center;gap:8px}
+.read-time{font-size:12px;font-weight:300;color:var(--text-secondary);line-height:16px}
+.card-tag{font-size:11px;font-weight:400;color:var(--text-secondary);background:#F2F2F0;border-radius:6px;padding:3px 8px;line-height:14px}
+.card-actions{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:0.5px solid var(--border-gray)}
+.action-btn{display:flex;align-items:center;gap:6px;cursor:pointer;transition:transform 0.15s ease;background:none;border:none;padding:4px 0}
+.action-btn:active{transform:scale(0.92)}
+.action-btn svg{width:20px;height:20px;stroke:var(--text-primary);stroke-width:1.6;fill:none;transition:all 0.2s ease}
+.action-btn.liked svg{stroke:var(--highlight-blue);fill:var(--highlight-blue)}
+.action-btn.saved svg{stroke:var(--highlight-blue);fill:var(--highlight-blue)}
+.action-count{font-size:11px;font-weight:300;color:var(--text-secondary);line-height:14px}
+.bottom-tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(248,248,246,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:0.5px solid var(--border-gray);display:flex;align-items:center;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom));z-index:100}
+.tab-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;cursor:pointer;transition:transform 0.15s ease;background:none;border:none}
+.tab-btn:active{transform:scale(0.92)}
+.tab-btn svg{width:24px;height:24px;stroke:var(--text-secondary);stroke-width:1.6;fill:none;transition:stroke 0.2s ease}
+.tab-btn.active svg{stroke:var(--text-primary)}
+.tab-btn .tab-label{font-size:10px;font-weight:500;color:var(--text-secondary);line-height:12px}
+.tab-btn.active .tab-label{color:var(--text-primary)}
+.story-viewer{position:fixed;inset:0;background:#000;z-index:200;display:none;align-items:center;justify-content:center}
+.story-viewer.open{display:flex}
+.story-viewer-content{width:100%;max-width:430px;height:100%;position:relative}
+.story-progress-bar{position:absolute;top:12px;left:12px;right:12px;height:2px;background:rgba(255,255,255,0.3);border-radius:1px;z-index:10}
+.story-progress-fill{height:100%;background:#fff;border-radius:1px;width:0%;transition:width 0.1s linear}
+.story-viewer-header{position:absolute;top:24px;left:16px;right:60px;display:flex;align-items:center;gap:10px;z-index:10}
+.story-viewer-header img{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.5)}
+.sv-name{color:#fff;font-size:14px;font-weight:500}
+.sv-time{color:rgba(255,255,255,0.6);font-size:12px;font-weight:300}
+.story-viewer-close{position:absolute;top:24px;right:16px;z-index:11;cursor:pointer;background:none;border:none;padding:4px}
+.story-viewer-close svg{width:24px;height:24px;stroke:#fff;stroke-width:1.8;fill:none}
+.story-viewer-image{width:100%;height:100%;object-fit:cover}
+.story-viewer-caption{position:absolute;bottom:40px;left:20px;right:20px;color:#fff;font-size:14px;line-height:20px;text-shadow:0 1px 4px rgba(0,0,0,0.5)}
+.article-page{position:fixed;inset:0;background:var(--bg-base);z-index:150;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateX(100%);transition:transform 0.3s cubic-bezier(0.32,0.72,0,1);max-width:430px;margin:0 auto}
+.article-page.open{transform:translateX(0)}
+.article-nav{position:sticky;top:0;z-index:10;background:rgba(248,248,246,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:0.5px solid var(--border-gray);padding:12px 16px;display:flex;align-items:center;gap:12px}
+.article-back{cursor:pointer;background:none;border:none;padding:4px;transition:transform 0.15s ease}
+.article-back:active{transform:scale(0.9)}
+.article-back svg{width:22px;height:22px;stroke:var(--text-primary);stroke-width:1.8;fill:none}
+.article-nav-title{font-size:16px;font-weight:600;color:var(--text-primary);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.article-hero{width:100%;aspect-ratio:16/9;overflow:hidden}
+.article-hero img{width:100%;height:100%;object-fit:cover}
+.article-body{padding:24px 20px 100px}
+.article-title{font-size:26px;font-weight:700;line-height:32px;color:var(--text-primary);margin-bottom:10px;letter-spacing:-0.3px}
+.article-subtitle{font-size:15px;font-weight:400;line-height:22px;color:var(--text-secondary);margin-bottom:20px}
+.article-author-bar{display:flex;align-items:center;gap:10px;padding:16px 0;border-top:0.5px solid var(--border-gray);border-bottom:0.5px solid var(--border-gray);margin-bottom:24px}
+.article-author-bar img{width:40px;height:40px;border-radius:50%;object-fit:cover}
+.article-author-name{font-size:14px;font-weight:600;color:var(--text-primary)}
+.article-author-tag{font-size:12px;font-weight:300;color:var(--text-secondary)}
+.article-read-info{margin-left:auto;text-align:right}
+.article-read-time{font-size:12px;font-weight:300;color:var(--text-secondary);display:block}
+.article-date{font-size:11px;font-weight:300;color:var(--text-secondary)}
+.article-text{font-size:15px;line-height:26px;color:#333}
+.article-text p{margin-bottom:16px}
+.article-text h3{font-size:18px;font-weight:700;margin:28px 0 12px;color:var(--text-primary)}
+.article-text .lead{font-size:17px;font-weight:500;line-height:28px;color:var(--text-primary);margin-bottom:20px}
+.article-text .quote{border-left:3px solid var(--highlight-blue);padding:12px 16px;margin:20px 0;font-size:15px;font-style:italic;color:var(--text-primary);background:rgba(58,100,140,0.04);border-radius:0 8px 8px 0}
+.article-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:28px;padding-top:20px;border-top:0.5px solid var(--border-gray)}
+.article-tags .tag{font-size:12px;font-weight:400;color:var(--text-secondary);background:#F2F2F0;border-radius:8px;padding:6px 12px}
+.article-actions-bar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(248,248,246,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:0.5px solid var(--border-gray);display:flex;align-items:center;justify-content:space-around;padding:10px 20px calc(10px + env(safe-area-inset-bottom));z-index:20}
+.profile-header{padding:20px 16px}
+.profile-top{display:flex;align-items:center;gap:20px;margin-bottom:16px}
+.profile-avatar{width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid var(--border-gray)}
+.profile-stats{display:flex;gap:24px;flex:1}
+.profile-stat{text-align:center}
+.profile-stat-num{font-size:18px;font-weight:700;color:var(--text-primary)}
+.profile-stat-label{font-size:11px;font-weight:300;color:var(--text-secondary)}
+.profile-name{font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:2px}
+.profile-bio{font-size:13px;font-weight:300;color:var(--text-secondary);line-height:18px}
+.profile-tabs{display:flex;border-top:0.5px solid var(--border-gray);border-bottom:0.5px solid var(--border-gray);margin-top:16px}
+.profile-tab{flex:1;text-align:center;padding:12px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text-secondary);border-bottom:2px solid transparent;transition:all 0.2s ease}
+.profile-tab.active{color:var(--text-primary);border-bottom-color:var(--text-primary)}
+.profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
+.profile-grid-item{aspect-ratio:1;overflow:hidden;cursor:pointer}
+.profile-grid-item img{width:100%;height:100%;object-fit:cover}
+.discover-section{padding:0 16px}
+.section-title{font-size:20px;font-weight:700;color:var(--text-primary);margin:20px 0 14px;letter-spacing:-0.3px}
+.trending-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.trending-card{border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 6px var(--card-shadow);cursor:pointer;transition:transform 0.15s ease}
+.trending-card:active{transform:scale(0.97)}
+.trending-card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.trending-card-body{padding:10px 12px}
+.trending-card-title{font-size:13px;font-weight:600;color:var(--text-primary);line-height:18px;margin-bottom:4px}
+.trending-card-meta{font-size:11px;font-weight:300;color:var(--text-secondary)}
+.featured-creators{display:flex;gap:14px;overflow-x:auto;padding:0 0 16px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.featured-creators::-webkit-scrollbar{display:none}
+.creator-card{flex-shrink:0;width:140px;border-radius:12px;overflow:hidden;background:#fff;box-shadow:0 2px 6px var(--card-shadow);cursor:pointer;transition:transform 0.15s ease}
+.creator-card:active{transform:scale(0.97)}
+.creator-card img{width:100%;aspect-ratio:1;object-fit:cover}
+.creator-card-body{padding:10px 12px}
+.creator-card-name{font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:2px}
+.creator-card-field{font-size:11px;font-weight:300;color:var(--text-secondary)}
+.search-results{padding:0 16px}
+.no-results{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+.no-results svg{width:48px;height:48px;stroke:var(--border-gray);stroke-width:1.5;fill:none;margin-bottom:12px}
+.create-page-content{padding:20px 16px}
+.create-upload-area{width:100%;aspect-ratio:16/9;border:2px dashed var(--border-gray);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s ease;margin-bottom:20px;background:#F0F0EE;overflow:hidden;position:relative}
+.create-upload-area:active{transform:scale(0.98)}
+.create-upload-area.has-image{border-style:solid;border-color:var(--text-primary)}
+.create-upload-area img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.create-upload-placeholder{text-align:center;position:relative;z-index:1}
+.create-upload-placeholder svg{width:36px;height:36px;stroke:var(--text-secondary);stroke-width:1.5;fill:none;margin-bottom:8px}
+.create-upload-placeholder p{font-size:14px;font-weight:400;color:var(--text-secondary)}
+.create-field{margin-bottom:18px}
+.create-field label{display:block;font-size:13px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.create-field input,.create-field textarea,.create-field select{width:100%;background:#fff;border:1px solid var(--border-gray);border-radius:12px;padding:12px 14px;font-size:14px;color:var(--text-primary);outline:none;font-family:inherit;transition:border-color 0.2s ease}
+.create-field input:focus,.create-field textarea:focus,.create-field select:focus{border-color:var(--highlight-blue)}
+.create-field textarea{resize:vertical;min-height:80px}
+.create-tags-row{display:flex;gap:8px;flex-wrap:wrap}
+.create-tag-option{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500;border:1px solid var(--border-gray);color:var(--text-secondary);cursor:pointer;transition:all 0.2s ease}
+.create-tag-option.selected{background:var(--highlight-blue);color:#fff;border-color:var(--highlight-blue)}
+.create-publish-btn{width:100%;padding:14px;background:var(--text-primary);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:600;cursor:pointer;transition:all 0.15s ease;margin-top:8px}
+.create-publish-btn:active{transform:scale(0.97)}
+.saved-list{padding:0 16px}
+.saved-empty{text-align:center;padding:60px 20px;color:var(--text-secondary)}
+.saved-empty svg{width:48px;height:48px;stroke:var(--border-gray);stroke-width:1.5;fill:none;margin-bottom:12px}
+.saved-filter-row{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;scrollbar-width:none}
+.saved-filter-row::-webkit-scrollbar{display:none}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(26,26,26,0.9);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:400;z-index:300;opacity:0;pointer-events:none;transition:all 0.3s ease;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.pull-indicator{text-align:center;padding:10px;font-size:12px;color:var(--text-secondary);font-weight:300;display:none}
+.pull-indicator.visible{display:block}
+@media(max-width:380px){.card-title{font-size:16px}.card-subtitle{font-size:13px}.story-ring{width:64px;height:64px}.story-ring .sa{width:56px;height:56px}.story-item{width:68px}}
+@media(min-width:431px){body{background:#e0e0e0}}
+</style>
+</head>
+<body>
+<div class="app-shell">
+<nav class="top-nav"><div class="brand">龙创AI</div><div class="nav-icons"><svg viewBox="0 0 24 24" onclick="focusSearch()"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><svg viewBox="0 0 24 24" onclick="showToast('No new notifications')"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div></nav>
+<div class="page active" id="page-home"><div class="story-bar" id="storyBar"></div><div class="pull-indicator" id="pullIndicator">Pull to refresh</div><div class="feed" id="feed"></div></div>
+<div class="page" id="page-discover"><div class="search-bar"><input type="text" class="search-input" id="searchInput" placeholder="Search articles, creators, topics..." oninput="handleSearch(this.value)"><button class="search-btn" onclick="doSearch()"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></button></div><div class="category-chips" id="categoryChips"></div><div id="discoverContent"><div class="discover-section"><div class="section-title">Trending Topics</div><div class="trending-grid" id="trendingGrid"></div></div><div class="discover-section"><div class="section-title">Featured Creators</div><div class="featured-creators" id="featuredCreators"></div></div><div class="discover-section"><div class="section-title">Recent Posts</div><div class="feed" id="discoverFeed" style="padding:0"></div></div></div><div id="searchResults" style="display:none"></div></div>
+<div class="page" id="page-create"><div class="create-page-content"><div class="create-upload-area" id="uploadArea" onclick="triggerUpload()"><div class="create-upload-placeholder" id="uploadPlaceholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><p>Tap to upload your work</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)"></div><div class="create-field"><label>Title</label><input type="text" id="createTitle" placeholder="Give your work a title..." maxlength="80"></div><div class="create-field"><label>Description</label><textarea id="createDesc" placeholder="Describe your creative process, technique, or inspiration..." maxlength="500"></textarea></div><div class="create-field"><label>Category</label><select id="createCategory"><option value="">Select a category</option><option>Photography</option><option>Cinematography</option><option>Visual Design</option><option>Color Grading</option><option>Studio</option><option>Architecture</option></select></div><div class="create-field"><label>Tags</label><div class="create-tags-row" id="createTagsRow"></div></div><button class="create-publish-btn" onclick="publishWork()">Publish</button></div></div>
+<div class="page" id="page-saved"><div class="saved-filter-row" id="savedFilters"></div><div class="saved-list" id="savedList"></div></div>
+<div class="page" id="page-profile"><div class="profile-header"><div class="profile-top"><img class="profile-avatar" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80" alt=""><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-num">248</div><div class="profile-stat-label">Posts</div></div><div class="profile-stat"><div class="profile-stat-num">12.4K</div><div class="profile-stat-label">Followers</div></div><div class="profile-stat"><div class="profile-stat-num">186</div><div class="profile-stat-label">Following</div></div></div></div><div class="profile-name">Elena Marsh</div><div class="profile-bio">Professional Photographer - Visual Storyteller<br>Natural light specialist - Editorial & Portrait</div><div class="profile-tabs"><div class="profile-tab active" onclick="switchProfileTab(this,'grid')">Grid</div><div class="profile-tab" onclick="switchProfileTab(this,'saved')">Saved</div><div class="profile-tab" onclick="switchProfileTab(this,'tagged')">Tagged</div></div></div><div class="profile-grid" id="profileGrid"></div></div>
+</div>
+<nav class="bottom-tabs"><button class="tab-btn active" data-tab="home" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg><span class="tab-label">Home</span></button><button class="tab-btn" data-tab="discover" onclick="switchTab('discover')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 8v8"/></svg><span class="tab-label">Discover</span></button><button class="tab-btn" data-tab="create" onclick="switchTab('create')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><span class="tab-label">Create</span></button><button class="tab-btn" data-tab="saved" onclick="switchTab('saved')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span class="tab-label">Saved</span></button><button class="tab-btn" data-tab="profile" onclick="switchTab('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg><span class="tab-label">Profile</span></button></nav>
+<div class="story-viewer" id="storyViewer"><div class="story-viewer-content"><div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div><div class="story-viewer-header"><img id="svAvatar" src="" alt=""><div><div class="sv-name" id="svName"></div><div class="sv-time" id="svTime"></div></div></div><button class="story-viewer-close" onclick="closeStory()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button><img class="story-viewer-image" id="svImage" src="" alt=""><div class="story-viewer-caption" id="svCaption"></div></div></div>
+<div class="article-page" id="articlePage"><nav class="article-nav"><button class="article-back" onclick="closeArticle()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="article-nav-title" id="articleNavTitle"></div></nav><div class="article-hero"><img id="articleHero" src="" alt=""></div><div class="article-body" id="articleBody"></div><div class="article-actions-bar" id="articleActionsBar"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+// DATA
+var storyData=[
+{id:"my",name:"Your Story",avatar:"https://images.unsplash.com/photo-1500628960416-4f05b9b503d3?w=200&q=80",isMy:true,active:false},
+{id:"s1",name:"Elena Marsh",avatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&q=85",caption:"Golden hour silhouette study - f/1.4, 85mm",time:"2h ago",active:true,field:"Portrait"},
+{id:"s2",name:"Marcus Reed",avatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=800&q=85",caption:"Architectural geometry - minimalist facade",time:"4h ago",active:true,field:"Architecture"},
+{id:"s3",name:"Sofia Chen",avatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=800&q=85",caption:"On-set color reference - teal & orange grade",time:"6h ago",active:true,field:"Cinematography"},
+{id:"s4",name:"James Wright",avatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",image:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=800&q=85",caption:"Street photography - shadows & contrast",time:"8h ago",active:false,field:"Street"},
+{id:"s5",name:"Adrian Voss",avatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",image:"https://images.unsplash.com/photo-1500614933-8286-6e6b938f7e22?w=800&q=85",caption:"Studio setup - single softbox, deep shadow",time:"12h ago",active:false,field:"Studio"},
+{id:"s6",name:"Nora Lindqvist",avatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&q=85",caption:"Minimal still life - natural texture & form",time:"14h ago",active:false,field:"Still Life"},
+{id:"s7",name:"Kai Tanaka",avatar:"https://images.unsplash.com/photo-1545996124-0501ebae84d0?w=200&q=80",image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=800&q=85",caption:"Lens flare test - anamorphic 40mm T2.2",time:"18h ago",active:false,field:"Cinematography"},
+{id:"s8",name:"Isabella Romano",avatar:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=200&q=80",image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=800&q=85",caption:"Color grading reference - filmic midtones",time:"22h ago",active:false,field:"Color Grade"}
+];
+
+var feedData=[
+{id:1,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Natural Light Portrait Composition Skills",subtitle:"A practical breakdown of how to read direction, quality, and ratio of natural light for compelling outdoor portraits.",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"3 min Read",tags:["Light & Shadow","Composition"],likes:2847,comments:142,saves:891,liked:false,saved:false,category:"Photography",
+article:{lead:"Natural light is the most powerful and most misunderstood tool in portrait photography. Unlike studio strobes, it cannot be controlled - only understood, anticipated, and directed.",sections:[{h:"Direction: Where the Light Comes From",p:"The angle between your subject, the light source, and your camera determines everything. Front lighting flattens features. Side lighting reveals texture and form. Backlighting creates separation and atmosphere."},{h:"Quality: Hard vs Soft",p:"Cloud cover, atmospheric haze, and reflection from buildings all affect light quality. Overcast skies act as a giant softbox, wrapping light gently around facial structures."},{h:"Ratio: The Gap Between Highlights and Shadows",p:"A 2:1 ratio produces soft, flattering portraits. A 4:1 ratio adds drama. Beyond 8:1, you enter chiaroscuro territory - powerful but unforgiving."},{h:"Color Temperature: Warmth Tells Time",p:"Early morning light sits around 2000K-3000K. Midday sun approaches 5500K. Late afternoon shifts back to 3200K. These shifts are mood, not flaws."}],quote:"The best natural light photographers do not chase perfect conditions - they read imperfect light and find the portrait it wants to create.",date:"Jul 28, 2026"}},
+{id:2,image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=900&q=85",title:"Cinema Video Tracking Shot Guide",subtitle:"Master the tracking shot - from gimbal fundamentals to blocking actor movement for cinematic continuous shots.",authorAvatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",authorName:"Sofia Chen",authorTag:"Cinematographer",readTime:"5 min Read",tags:["Cinematography","Movement"],likes:4102,comments:287,saves:1543,liked:true,saved:false,category:"Cinematography",
+article:{lead:"The tracking shot is one of cinema most expressive techniques - a continuous movement that guides the audience eye through space and time.",sections:[{h:"Gimbal Setup: Balance Before Movement",p:"A poorly balanced gimbal fights you on every move. Spend 15 minutes on static balance before powering on."},{h:"Walking Technique: The Ninja Step",p:"Roll your foot from heel to toe with bent knees, keeping your center of gravity constant. Practice walking sideways for smoother tracking."},{h:"Speed Matching: Mirror Your Subject",p:"If the camera moves faster than the subject, the background accelerates while the subject drifts. Lock your pace to the subject hip movement."},{h:"Blocking: Plan the Arc",p:"A tracking shot is choreography. Approaching the subject intensifies; retreating releases tension. Plan your arc to serve the story beat."}],quote:"Movement in cinema is not decoration. Every inch of camera travel must earn its place in the story.",date:"Jul 26, 2026"}},
+{id:3,image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=900&q=85",title:"Minimalist Architectural Photography Color Grading",subtitle:"A step-by-step color grading workflow for architectural images - from RAW correction to final muted matte finish.",authorAvatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",authorName:"Marcus Reed",authorTag:"Architectural Designer",readTime:"4 min Read",tags:["Color Grading","Architecture"],likes:1956,comments:98,saves:723,liked:false,saved:true,category:"Architecture",
+article:{lead:"Architectural photography demands precision. Unlike portraits, buildings do not have mood to hide behind - every line, surface, and shadow is scrutinized.",sections:[{h:"RAW Correction: Establish Neutrality",p:"Before creative grading, correct lens distortion, vertical perspective, and chromatic aberration. Set white balance using a neutral gray surface."},{h:"Tone Curve: Lift Shadows, Compress Highlights",p:"Create a soft S-curve but keep it gentle. Lift the black point by 8-12 points for a matte baseline. Compress highlights to preserve sky detail."},{h:"Color Separation: Split Toning",p:"Push shadows toward cool slate (Hue:210, Sat:8). Push highlights toward warm ivory (Hue:40, Sat:5). The split should be barely perceptible."},{h:"HSL Precision: Subdue the Spectrum",p:"Reduce all colors by 10-15%, then increase blue and orange by 5%. Desaturate greens heavily - they compete with architectural forms."}],quote:"In architectural grading, what you remove matters more than what you add.",date:"Jul 24, 2026"}},
+{id:4,image:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=85",title:"Lens Selection & Scene Adaptation Guide",subtitle:"Matching focal length to narrative intent - a field guide for choosing the right lens for every shooting scenario.",authorAvatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",authorName:"James Wright",authorTag:"Photography Director",readTime:"6 min Read",tags:["Lens Selection","Gear"],likes:3201,comments:215,saves:1208,liked:false,saved:false,category:"Photography",
+article:{lead:"Every focal length tells a different story. The lens you choose shapes perspective, compression, and emotional distance.",sections:[{h:"Wide Angle (24-35mm): Environment as Context",p:"Wide lenses include more scene. They exaggerate depth - objects close to the lens appear larger than life. Use for environmental portraits and interiors."},{h:"Standard (50mm): The Honest Eye",p:"50mm approximates human perspective compression. It neither flatters nor distorts - it records. This makes it the most truthful focal length."},{h:"Short Telephoto (85mm): Portrait Perfection",p:"85mm compresses facial features gently, producing flattering proportions. At f/1.4, it separates subject from background with creamy bokeh."},{h:"Long Telephoto (135-200mm): Isolation & Compression",p:"Long lenses compress distance, stacking background elements closer. This creates focused, intimate frames that eliminate distractions."}],quote:"A lens is not a window - it is a voice. The focal length you choose determines what your image says.",date:"Jul 22, 2026"}},
+{id:5,image:"https://images.unsplash.com/photo-1500614933-8286-6e6b938f7e22?w=900&q=85",title:"Studio Lighting: Single Softbox Mastery",subtitle:"How to create dimensional, professional portraits with just one light source - positioning, modifiers, and shadow control.",authorAvatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",authorName:"Adrian Voss",authorTag:"Studio Photographer",readTime:"3 min Read",tags:["Studio","Lighting"],likes:1689,comments:76,saves:645,liked:false,saved:false,category:"Studio",
+article:{lead:"One light is not a limitation - it is a discipline. When you remove the option of adding another light, you are forced to master shadow and distance.",sections:[{h:"Position: 45 and Slightly Above",p:"Place the softbox at 45 degrees to the subject face, angled downward at roughly 30 degrees. This is classic Rembrandt positioning."},{h:"Distance: Closer Softer, Farther Harder",p:"A softbox placed close produces wrapping, gentle light. Move it back and the same modifier produces harder shadows."},{h:"Fill: Bounce, Do Not Add",p:"A white reflector on the opposite side lifts shadows without adding a second light source. Position close for more fill, farther for less."},{h:"Background Control: Distance is Key",p:"The further your subject is from the background, the more the softbox light falls off before reaching it. At 2 meters, the background will be 2-3 stops darker."}],quote:"One light teaches you what light actually does. Multiple lights teach you what you can hide.",date:"Jul 20, 2026"}},
+{id:6,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Film Color Theory for Digital Cinematography",subtitle:"Understanding color harmony, complementary palettes, and emotional color scripts for modern digital workflows.",authorAvatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",authorName:"Nora Lindqvist",authorTag:"Color Theorist",readTime:"5 min Read",tags:["Color Theory","Cinematography"],likes:2456,comments:189,saves:987,liked:true,saved:true,category:"Color Grading",
+article:{lead:"Color in cinema is not decoration - it is narrative architecture. Before a single word of dialogue registers, color has already established mood.",sections:[{h:"Complementary: Tension in Contrast",p:"Blue and orange, teal and red - complementary pairs sit opposite on the color wheel. They create visual tension."},{h:"Analogous: Harmony and Calm",p:"Adjacent colors create harmony. Analogous palettes feel unified and calm. Use for scenes of stability or reflection."},{h:"Color Scripts: Emotional Arcs",p:"A color script maps the dominant color of each scene across an entire film. Pixar pioneered this. The script reveals emotional rhythm."},{h:"Saturation as Emotion",p:"High saturation signals intensity. Low saturation signals restraint. The shift between levels is more powerful than the level itself."}],quote:"Color is the first language the audience understands. It speaks before the story does.",date:"Jul 18, 2026"}}
+];
+
+var categories=["All","Photography","Cinematography","Visual Design","Color Grading","Studio","Architecture"];
+var allTags=["Light & Shadow","Composition","Cinematography","Movement","Color Grading","Architecture","Lens Selection","Gear","Studio","Lighting","Color Theory"];
+var userPosts=[];
+var selectedTags=[];
+var uploadedImage="";
+var toastTimer=null;
+var storyTimer=null;
+
+// UTILS
+function fmt(n){return n>=1000?(n/1000).toFixed(1)+"K":""+n}
+function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show")},2000)}
+function getAllPosts(){return userPosts.concat(feedData)}
+function findPost(id){return feedData.find(function(c){return c.id===id})||userPosts.find(function(c){return c.id===id})}
+
+// SVG icons
+var ico={heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
+comment:'<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>',
+bookmark:'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>',
+share:'<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>'};
+
+function cardHTML(c){
+ var tags=c.tags.map(function(t){return '<span class="card-tag">'+t+'</span>'}).join("");
+ return '<article class="feed-card" data-id="'+c.id+'"><div class="card-image-wrapper"><img class="card-image" src="'+c.image+'" alt="'+c.title+'" loading="lazy"><div class="card-image-gradient"></div></div><div class="card-content"><h2 class="card-title">'+c.title+'</h2><p class="card-subtitle">'+c.subtitle+'</p><div class="card-author-row"><div class="author-info"><img class="author-avatar" src="'+c.authorAvatar+'" alt="" loading="lazy"><div><div class="author-name">'+c.authorName+'</div><div class="author-tag">'+c.authorTag+'</div></div></div><div class="card-meta"><span class="read-time">'+c.readTime+'</span>'+tags+'</div></div><div class="card-actions"><button class="action-btn'+(c.liked?" liked":"")+'" data-act="like" data-id="'+c.id+'">'+ico.heart+'<span class="action-count">'+fmt(c.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+c.id+'">'+ico.comment+'<span class="action-count">'+fmt(c.comments)+'</span></button><button class="action-btn'+(c.saved?" saved":"")+'" data-act="save" data-id="'+c.id+'">'+ico.bookmark+'<span class="action-count">'+fmt(c.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+c.id+'">'+ico.share+'<span class="action-count">Share</span></button></div></div></article>';
+}
+
+// Event delegation for feed cards
+document.addEventListener("click",function(e){
+ var btn=e.target.closest("[data-act]");
+ if(btn){
+  e.stopPropagation();
+  var act=btn.dataset.act;
+  var id=parseInt(btn.dataset.id);
+  if(!isNaN(id)){
+   if(act==="like"){var c=findPost(id);if(c){c.liked=!c.liked;c.likes+=c.liked?1:-1;btn.classList.toggle("liked");btn.querySelector(".action-count").textContent=fmt(c.likes);if(c.liked)showToast("Liked")}}
+   else if(act==="save"){var c=findPost(id);if(c){c.saved=!c.saved;c.saves+=c.saved?1:-1;btn.classList.toggle("saved");btn.querySelector(".action-count").textContent=fmt(c.saves);if(c.saved)showToast("Saved to collection")}}
+   else if(act==="comment"){showToast("Comments coming soon")}
+   else if(act==="share"){var c=findPost(id);if(c){if(navigator.share){navigator.share({title:c.title,text:"Check this out"}).catch(function(){})}else{showToast("Share link copied")}}}
+   return;
+  }
+ }
+ var card=e.target.closest(".feed-card[data-id]");
+ if(card){
+  var cid=parseInt(card.dataset.id);
+  if(!isNaN(cid))openArticle(cid);
+ }
+});
+
+// TAB SWITCH
+function switchTab(tab){
+ document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active")});
+ var tb=document.querySelector("[data-tab='"+tab+"']");if(tb)tb.classList.add("active");
+ document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});
+ var pg=document.getElementById("page-"+tab);if(pg)pg.classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+ if(tab==="discover")renderDiscover();
+ if(tab==="saved")renderSaved();
+ if(tab==="profile")renderProfile();
+ if(tab==="create")initCreate();
+}
+
+// STORIES
+function renderStories(){
+ document.getElementById("storyBar").innerHTML=storyData.map(function(s){
+  var cls=s.isMy?"my-story":(s.active?"active":"inactive");
+  var badge=s.isMy?'<div class="add-badge"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>':"";
+  var label=s.isMy?"Your Story":s.name.split(" ")[0];
+  return '<div class="story-item" data-sid="'+s.id+'"><div class="story-ring '+cls+'"><img class="sa" src="'+s.avatar+'" alt="" loading="lazy">'+badge+'</div><div class="story-label">'+label+'</div></div>';
+ }).join("");
+}
+document.addEventListener("click",function(e){
+ var si=e.target.closest("[data-sid]");
+ if(si){
+  var sid=si.dataset.sid;
+  var s=storyData.find(function(x){return x.id===sid});
+  if(!s)return;
+  if(s.isMy){switchTab("create");return}
+  document.getElementById("svAvatar").src=s.avatar;
+  document.getElementById("svName").textContent=s.name;
+  document.getElementById("svTime").textContent=s.time;
+  document.getElementById("svImage").src=s.image;
+  document.getElementById("svCaption").textContent=s.caption;
+  document.getElementById("storyViewer").classList.add("open");
+  var p=document.getElementById("storyProgress");p.style.width="0%";
+  var pct=0;clearInterval(storyTimer);
+  storyTimer=setInterval(function(){pct+=1.5;p.style.width=pct+"%";if(pct>=100)closeStory()},100);
+ }
+});
+function closeStory(){document.getElementById("storyViewer").classList.remove("open");clearInterval(storyTimer)}
+
+// FEED
+function renderFeed(){document.getElementById("feed").innerHTML=getAllPosts().map(cardHTML).join("")}
+
+// ARTICLE
+function openArticle(id){
+ var card=findPost(id);if(!card)return;
+ document.getElementById("articleNavTitle").textContent=card.authorName;
+ document.getElementById("articleHero").src=card.image;
+ var html='<h1 class="article-title">'+card.title+'</h1><p class="article-subtitle">'+card.subtitle+'</p>';
+ html+='<div class="article-author-bar"><img src="'+card.authorAvatar+'" alt=""><div><div class="article-author-name">'+card.authorName+'</div><div class="article-author-tag">'+card.authorTag+'</div></div><div class="article-read-info"><span class="article-read-time">'+card.readTime+'</span><span class="article-date">'+(card.article?card.article.date:"Jul 31, 2026")+'</span></div></div>';
+ if(card.article){
+  html+='<div class="article-text"><p class="lead">'+card.article.lead+'</p>';
+  card.article.sections.forEach(function(sec){html+='<h3>'+sec.h+'</h3><p>'+sec.p+'</p>'});
+  html+='<div class="quote">'+card.article.quote+'</div></div>';
+ }else{
+  html+='<div class="article-text"><p class="lead">'+card.subtitle+'</p><p>'+(card.description||"")+'</p></div>';
+ }
+ html+='<div class="article-tags">'+card.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'<span class="tag">'+card.readTime+'</span></div>';
+ document.getElementById("articleBody").innerHTML=html;
+ document.getElementById("articleActionsBar").innerHTML='<button class="action-btn'+(card.liked?" liked":"")+'" data-act="like" data-id="'+id+'">'+ico.heart+'<span class="action-count">'+fmt(card.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+id+'">'+ico.comment+'<span class="action-count">'+fmt(card.comments)+'</span></button><button class="action-btn'+(card.saved?" saved":"")+'" data-act="save" data-id="'+id+'">'+ico.bookmark+'<span class="action-count">'+fmt(card.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+id+'">'+ico.share+'<span class="action-count">Share</span></button>';
+ document.getElementById("articlePage").classList.add("open");
+}
+function closeArticle(){document.getElementById("articlePage").classList.remove("open")}
+
+// DISCOVER
+function renderDiscover(){
+ document.getElementById("categoryChips").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-cat="'+c+'">'+c+'</div>'}).join("");
+ document.getElementById("trendingGrid").innerHTML=feedData.slice(0,4).map(function(c){return '<div class="trending-card" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"><div class="trending-card-body"><div class="trending-card-title">'+c.title+'</div><div class="trending-card-meta">'+c.authorName+" - "+fmt(c.likes)+" likes</div></div></div>"}).join("");
+ document.getElementById("featuredCreators").innerHTML=storyData.filter(function(s){return !s.isMy}).map(function(s){return '<div class="creator-card" data-creator="'+s.name+'"><img src="'+s.avatar+'" alt="" loading="lazy"><div class="creator-card-body"><div class="creator-card-name">'+s.name+'</div><div class="creator-card-field">'+(s.field||"Photography")+'</div></div></div>'}).join("");
+ document.getElementById("discoverFeed").innerHTML=getAllPosts().map(cardHTML).join("");
+}
+document.addEventListener("click",function(e){
+ var chip=e.target.closest(".chip[data-cat]");
+ if(chip){
+  document.querySelectorAll(".category-chips .chip").forEach(function(c){c.classList.remove("active")});
+  chip.classList.add("active");
+  var cat=chip.dataset.cat;
+  var dc=document.getElementById("discoverContent");
+  if(cat==="All"){dc.style.display="";document.getElementById("searchResults").style.display="none";return}
+  var filtered=feedData.filter(function(c){return c.category===cat});
+  document.getElementById("searchResults").style.display="block";
+  document.getElementById("searchResults").innerHTML='<div class="search-results"><div class="section-title">'+cat+" Articles</div>"+filtered.map(cardHTML).join("")+'</div>';
+  dc.style.display="none";
+ }
+ var tc=e.target.closest(".trending-card[data-id]");
+ if(tc){var tid=parseInt(tc.dataset.id);if(!isNaN(tid))openArticle(tid)}
+ var cc=e.target.closest("[data-creator]");
+ if(cc){showToast("Opening "+cc.dataset.creator+" profile")}
+});
+
+function focusSearch(){switchTab("discover");setTimeout(function(){document.getElementById("searchInput").focus()},300)}
+function handleSearch(val){
+ if(!val||val.trim().length<1){document.getElementById("discoverContent").style.display="";document.getElementById("searchResults").style.display="none";return}
+ val=val.toLowerCase().trim();
+ document.getElementById("discoverContent").style.display="none";
+ var results=getAllPosts().filter(function(c){return c.title.toLowerCase().indexOf(val)>=0||c.subtitle.toLowerCase().indexOf(val)>=0||c.authorName.toLowerCase().indexOf(val)>=0||c.tags.some(function(t){return t.toLowerCase().indexOf(val)>=0})||c.category.toLowerCase().indexOf(val)>=0});
+ var sr=document.getElementById("searchResults");sr.style.display="block";
+ if(results.length===0){sr.innerHTML='<div class="search-results"><div class="no-results"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><p>No results found</p></div></div>'}
+ else{sr.innerHTML='<div class="search-results"><div class="section-title">'+results.length+' Results</div>'+results.map(cardHTML).join("")+'</div>'}
+}
+function doSearch(){handleSearch(document.getElementById("searchInput").value)}
+
+// CREATE
+function initCreate(){
+ if(document.getElementById("createTagsRow").children.length===0){
+  document.getElementById("createTagsRow").innerHTML=allTags.map(function(t){return '<div class="create-tag-option" data-tag="'+t+'">'+t+'</div>'}).join("");
+ }
+}
+document.addEventListener("click",function(e){
+ var tg=e.target.closest(".create-tag-option[data-tag]");
+ if(tg){
+  tg.classList.toggle("selected");
+  var tag=tg.dataset.tag;
+  if(tg.classList.contains("selected")){selectedTags.push(tag)}
+  else{selectedTags=selectedTags.filter(function(t){return t!==tag})}
+ }
+});
+function triggerUpload(){document.getElementById("fileInput").click()}
+function handleUpload(e){
+ var file=e.target.files[0];if(!file)return;
+ var reader=new FileReader();
+ reader.onload=function(ev){uploadedImage=ev.target.result;var a=document.getElementById("uploadArea");a.classList.add("has-image");a.innerHTML='<img src="'+uploadedImage+'" alt="preview">';var inp=document.createElement("input");inp.type="file";inp.id="fileInput";inp.accept="image/*";inp.style.display="none";inp.onchange=handleUpload;a.appendChild(inp)};
+ reader.readAsDataURL(file);
+}
+function publishWork(){
+ var title=document.getElementById("createTitle").value.trim();
+ var desc=document.getElementById("createDesc").value.trim();
+ var cat=document.getElementById("createCategory").value;
+ if(!uploadedImage){showToast("Please upload an image first");return}
+ if(!title){showToast("Please enter a title");return}
+ if(!cat){showToast("Please select a category");return}
+ var np={id:Date.now(),image:uploadedImage,title:title,subtitle:desc||"New creative work",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"1 min Read",tags:selectedTags.length>0?selectedTags.slice(0,3):[cat],likes:0,comments:0,saves:0,liked:false,saved:false,category:cat,description:desc};
+ userPosts.unshift(np);
+ uploadedImage="";selectedTags=[];
+ document.getElementById("createTitle").value="";document.getElementById("createDesc").value="";document.getElementById("createCategory").value="";
+ var area=document.getElementById("uploadArea");area.classList.remove("has-image");
+ area.innerHTML='<div class="create-upload-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><p>Tap to upload your work</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">';
+ document.querySelectorAll(".create-tag-option").forEach(function(el){el.classList.remove("selected")});
+ renderFeed();showToast("Published successfully!");switchTab("home");
+}
+
+// SAVED
+function renderSaved(){
+ var saved=getAllPosts().filter(function(c){return c.saved});
+ document.getElementById("savedFilters").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-scat="'+c+'">'+c+'</div>'}).join("");
+ renderSavedList(saved);
+}
+function renderSavedList(items){
+ var el=document.getElementById("savedList");
+ if(items.length===0){el.innerHTML='<div class="saved-empty"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><p>No saved articles yet</p><p style="font-size:13px;margin-top:4px">Tap the bookmark icon on any article to save it</p></div>';return}
+ el.innerHTML=items.map(cardHTML).join("");
+}
+document.addEventListener("click",function(e){
+ var sc=e.target.closest("[data-scat]");
+ if(sc){
+  document.querySelectorAll("#savedFilters .chip").forEach(function(c){c.classList.remove("active")});
+  sc.classList.add("active");
+  var cat=sc.dataset.scat;
+  var saved=getAllPosts().filter(function(c){return c.saved});
+  if(cat!=="All")saved=saved.filter(function(c){return c.category===cat});
+  renderSavedList(saved);
+ }
+});
+
+// PROFILE
+function renderProfile(){
+ var grid=document.getElementById("profileGrid");
+ var imgs=getAllPosts().map(function(c){return c.image}).concat(feedData.slice(0,2).map(function(c){return c.image}));
+ grid.innerHTML=imgs.map(function(src,i){return '<div class="profile-grid-item" data-pidx="'+i+'"><img src="'+src+'" alt="" loading="lazy"></div>'}).join("");
+}
+document.addEventListener("click",function(e){
+ var pt=e.target.closest(".profile-tab");
+ if(pt&&!pt.classList.contains("active")){
+  document.querySelectorAll(".profile-tab").forEach(function(t){t.classList.remove("active")});
+  pt.classList.add("active");
+  var type=pt.textContent.toLowerCase().trim();
+  var grid=document.getElementById("profileGrid");
+  if(type==="saved"){
+   var sv=feedData.filter(function(c){return c.saved});
+   if(sv.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8A8A8A;font-size:13px">No saved posts</div>'}
+   else{grid.innerHTML=sv.map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")}
+  }else if(type==="tagged"){
+   grid.innerHTML=feedData.slice(2,6).map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")
+  }else{renderProfile()}
+ }
+ var pg=e.target.closest("[data-pidx]");
+ if(pg){showToast("Opening post")}
+ var pgid=e.target.closest(".profile-grid-item[data-id]");
+ if(pgid){var pid=parseInt(pgid.dataset.id);if(!isNaN(pid))openArticle(pid)}
+});
+
+// PULL REFRESH
+var pullStart=0,pulling=false;
+window.addEventListener("touchstart",function(e){if(window.scrollY===0){pullStart=e.touches[0].clientY;pulling=true}},{passive:true});
+window.addEventListener("touchmove",function(e){if(!pulling)return;var diff=e.touches[0].clientY-pullStart;var pi=document.getElementById("pullIndicator");if(diff>60&&window.scrollY===0){pi.classList.add("visible");pi.textContent="Release to refresh"}else if(diff>20){pi.classList.add("visible");pi.textContent="Pull to refresh"}},{passive:true});
+window.addEventListener("touchend",function(){if(!pulling)return;pulling=false;var pi=document.getElementById("pullIndicator");if(pi.textContent.includes("Release")){pi.textContent="Refreshing...";setTimeout(function(){pi.classList.remove("visible");showToast("Feed updated")},1200)}else{pi.classList.remove("visible")}},{passive:true});
+
+// KEYBOARD
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeArticle();closeStory()}});
+
+// INIT
+renderStories();
+renderFeed();
+</script>
+</body>
+</html>
