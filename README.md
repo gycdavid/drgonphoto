@@ -1,23 +1,23 @@
-# 龙创AI — 高端摄影/摄像/设计图文阅读 App
+# 龙创AI
 
-## 产品定位
-面向设计师、摄影师、摄像师、视觉创作者的专业图文社区。
+面向设计师、摄影师、摄像师、视觉创作者的专业社区App。
 
 ## 运行方式
-双击 `index.html` 在浏览器打开。推荐 Chrome DevTools 移动端模式预览。
+双击 `index.html` 在浏览器打开，或访问线上版：  
+https://gycdavid.github.io/drgonphoto/
 
-## 5 个完整页面
+## 功能页面
 
 | 页面 | 功能 |
 |------|------|
-| Home | Story圆环栏(9人)+信息流(6篇+用户发布)+下拉刷新 |
-| Discover | 实时搜索+分类筛选+Trending热门+推荐创作者+最新文章 |
-| Create | 图片上传预览+标题/描述/分类/标签+发布到首页 |
-| Saved | 已收藏列表+分类筛选+空态引导 |
-| Profile | 统计+简介+Grid/Saved/Tagged三栏+九宫格 |
+| Home | Story圆环栏 + 信息流 + 下拉刷新 |
+| Discover | 实时搜索 + 分类筛选 + 热门推荐 + 创作者推荐 |
+| 一键P图 | 上传图片 + 12款专业滤镜预设 + 6项精细调参 + 保存下载 |
+| Saved | 已收藏列表 + 分类筛选 |
+| Profile | 统计 + Grid/Saved/Tagged 三栏 |
 
-## 技术验证
-- JS 语法 Node.js 验证零错误
-- 括号平衡: 168/409/35 对, diff=0
-- 事件委托替代 onclick 字符串拼接, 消除转义引号问题
-- 品牌名: 龙创AI
+## 一键P图功能
+- 12款专业预设：Cinematic / Teal&Orange / Noir / Vintage / Faded / Portrait / Landscape / Matte / Cool Blue / Warm Sun / Dramatic / Original
+- 6项精细调参：Exposure / Contrast / Saturation / Warmth / Sharpness / Vignette
+- Canvas 实时渲染预览
+- 一键保存到手机/电脑
