@@ -1,11 +1,11 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#F8F8F6">
-<title>龙创AI — Visual Arts & Photography</title>
+<title>龙创AI</title>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{--bg-base:#F8F8F6;--text-primary:#1A1A1A;--text-secondary:#8A8A8A;--border-gray:#EAEAEA;--highlight-blue:#3A648C;--card-shadow:rgba(0,0,0,0.06);--radius:16px;--card-gap:18px}
@@ -66,7 +66,7 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue','Roboto',sans-seri
 .action-btn.saved svg{stroke:var(--highlight-blue);fill:var(--highlight-blue)}
 .action-count{font-size:11px;font-weight:300;color:var(--text-secondary);line-height:14px}
 .bottom-tabs{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(248,248,246,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:0.5px solid var(--border-gray);display:flex;align-items:center;justify-content:space-around;padding:8px 0 calc(8px + env(safe-area-inset-bottom));z-index:100}
-.tab-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 16px;cursor:pointer;transition:transform 0.15s ease;background:none;border:none}
+.tab-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 12px;cursor:pointer;transition:transform 0.15s ease;background:none;border:none}
 .tab-btn:active{transform:scale(0.92)}
 .tab-btn svg{width:24px;height:24px;stroke:var(--text-secondary);stroke-width:1.6;fill:none;transition:stroke 0.2s ease}
 .tab-btn.active svg{stroke:var(--text-primary)}
@@ -174,6 +174,40 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue','Roboto',sans-seri
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .pull-indicator{text-align:center;padding:10px;font-size:12px;color:var(--text-secondary);font-weight:300;display:none}
 .pull-indicator.visible{display:block}
+/* EDIT PAGE */
+.edit-page-content{padding:16px}
+.edit-upload-area{width:100%;aspect-ratio:4/3;border:2px dashed var(--border-gray);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s ease;margin-bottom:16px;background:#F0F0EE;overflow:hidden;position:relative}
+.edit-upload-area:active{transform:scale(0.98)}
+.edit-upload-area.has-image{border-style:solid;border-color:var(--text-primary)}
+.edit-upload-area img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.edit-upload-placeholder{text-align:center;position:relative;z-index:1}
+.edit-upload-placeholder svg{width:40px;height:40px;stroke:var(--text-secondary);stroke-width:1.5;fill:none;margin-bottom:8px}
+.edit-upload-placeholder p{font-size:14px;font-weight:400;color:var(--text-secondary)}
+.edit-preview-canvas{width:100%;border-radius:12px;display:block;margin-bottom:16px;background:#f0f0f0}
+.edit-presets{display:flex;gap:10px;overflow-x:auto;padding:0 0 14px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.edit-presets::-webkit-scrollbar{display:none}
+.preset-card{flex-shrink:0;width:72px;cursor:pointer;text-align:center}
+.preset-thumb{width:72px;height:72px;border-radius:12px;overflow:hidden;border:2px solid transparent;transition:border-color 0.2s ease}
+.preset-card.active .preset-thumb{border-color:var(--highlight-blue)}
+.preset-thumb canvas{width:100%;height:100%;display:block}
+.preset-name{font-size:10px;font-weight:400;color:var(--text-secondary);margin-top:4px;line-height:14px}
+.preset-card.active .preset-name{color:var(--highlight-blue);font-weight:600}
+.edit-section{margin-bottom:20px}
+.edit-section-title{font-size:14px;font-weight:600;color:var(--text-primary);margin-bottom:10px}
+.edit-slider-row{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.edit-slider-label{font-size:12px;font-weight:400;color:var(--text-secondary);width:64px;flex-shrink:0}
+.edit-slider{flex:1;-webkit-appearance:none;appearance:none;height:4px;background:var(--border-gray);border-radius:2px;outline:none}
+.edit-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:18px;height:18px;border-radius:50%;background:var(--text-primary);cursor:pointer}
+.edit-slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--text-primary);cursor:pointer;border:none}
+.edit-slider-value{font-size:12px;font-weight:500;color:var(--text-primary);width:36px;text-align:right;flex-shrink:0}
+.edit-actions{display:flex;gap:10px;padding:0 0 8px}
+.edit-btn{flex:1;padding:12px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s ease}
+.edit-btn:active{transform:scale(0.97)}
+.edit-btn-reset{background:#F0F0EE;color:var(--text-secondary)}
+.edit-btn-save{background:var(--text-primary);color:#fff}
+.edit-compare{position:relative;width:100%;margin-bottom:16px;border-radius:12px;overflow:hidden}
+.edit-compare img,.edit-compare canvas{width:100%;display:block}
+.edit-compare-label{position:absolute;top:8px;left:8px;background:rgba(0,0,0,0.6);color:#fff;font-size:10px;padding:2px 8px;border-radius:4px}
 @media(max-width:380px){.card-title{font-size:16px}.card-subtitle{font-size:13px}.story-ring{width:64px;height:64px}.story-ring .sa{width:56px;height:56px}.story-item{width:68px}}
 @media(min-width:431px){body{background:#e0e0e0}}
 </style>
@@ -186,15 +220,15 @@ body{font-family:-apple-system,'SF Pro Text','Helvetica Neue','Roboto',sans-seri
 <div class="page" id="page-create"><div class="create-page-content"><div class="create-upload-area" id="uploadArea" onclick="triggerUpload()"><div class="create-upload-placeholder" id="uploadPlaceholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><p>Tap to upload your work</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)"></div><div class="create-field"><label>Title</label><input type="text" id="createTitle" placeholder="Give your work a title..." maxlength="80"></div><div class="create-field"><label>Description</label><textarea id="createDesc" placeholder="Describe your creative process, technique, or inspiration..." maxlength="500"></textarea></div><div class="create-field"><label>Category</label><select id="createCategory"><option value="">Select a category</option><option>Photography</option><option>Cinematography</option><option>Visual Design</option><option>Color Grading</option><option>Studio</option><option>Architecture</option></select></div><div class="create-field"><label>Tags</label><div class="create-tags-row" id="createTagsRow"></div></div><button class="create-publish-btn" onclick="publishWork()">Publish</button></div></div>
 <div class="page" id="page-saved"><div class="saved-filter-row" id="savedFilters"></div><div class="saved-list" id="savedList"></div></div>
 <div class="page" id="page-profile"><div class="profile-header"><div class="profile-top"><img class="profile-avatar" src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80" alt=""><div class="profile-stats"><div class="profile-stat"><div class="profile-stat-num">248</div><div class="profile-stat-label">Posts</div></div><div class="profile-stat"><div class="profile-stat-num">12.4K</div><div class="profile-stat-label">Followers</div></div><div class="profile-stat"><div class="profile-stat-num">186</div><div class="profile-stat-label">Following</div></div></div></div><div class="profile-name">Elena Marsh</div><div class="profile-bio">Professional Photographer - Visual Storyteller<br>Natural light specialist - Editorial & Portrait</div><div class="profile-tabs"><div class="profile-tab active" onclick="switchProfileTab(this,'grid')">Grid</div><div class="profile-tab" onclick="switchProfileTab(this,'saved')">Saved</div><div class="profile-tab" onclick="switchProfileTab(this,'tagged')">Tagged</div></div></div><div class="profile-grid" id="profileGrid"></div></div>
+<div class="page" id="page-edit"><div class="edit-page-content"><div id="editUploadWrap" class="edit-upload-area" onclick="triggerEditUpload()"><div class="edit-upload-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="12" cy="12" r="3"/><path d="M12 8v8M8 12h8"/></svg><p>Upload a photo to start editing</p></div><input type="file" id="editFileInput" accept="image/*" style="display:none" onchange="handleEditUpload(event)"></div><div id="editTools" style="display:none"><div class="edit-section"><div class="edit-section-title">Preset Filters</div><div class="edit-presets" id="editPresets"></div></div><div class="edit-section"><div class="edit-section-title">Fine Tuning</div><div class="edit-slider-row"><span class="edit-slider-label">Exposure</span><input type="range" class="edit-slider" id="s-exposure" min="-100" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-exposure">0</span></div><div class="edit-slider-row"><span class="edit-slider-label">Contrast</span><input type="range" class="edit-slider" id="s-contrast" min="-100" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-contrast">0</span></div><div class="edit-slider-row"><span class="edit-slider-label">Saturation</span><input type="range" class="edit-slider" id="s-saturation" min="-100" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-saturation">0</span></div><div class="edit-slider-row"><span class="edit-slider-label">Warmth</span><input type="range" class="edit-slider" id="s-warmth" min="-100" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-warmth">0</span></div><div class="edit-slider-row"><span class="edit-slider-label">Sharpness</span><input type="range" class="edit-slider" id="s-sharpness" min="0" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-sharpness">0</span></div><div class="edit-slider-row"><span class="edit-slider-label">Vignette</span><input type="range" class="edit-slider" id="s-vignette" min="0" max="100" value="0" oninput="applyEdit()"><span class="edit-slider-value" id="v-vignette">0</span></div></div><div class="edit-actions"><button class="edit-btn edit-btn-reset" onclick="resetEdit()">Reset</button><button class="edit-btn edit-btn-save" onclick="saveEdit()">Save Photo</button></div></div></div>
 </div>
-<nav class="bottom-tabs"><button class="tab-btn active" data-tab="home" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg><span class="tab-label">Home</span></button><button class="tab-btn" data-tab="discover" onclick="switchTab('discover')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 8v8"/></svg><span class="tab-label">Discover</span></button><button class="tab-btn" data-tab="create" onclick="switchTab('create')"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><span class="tab-label">Create</span></button><button class="tab-btn" data-tab="saved" onclick="switchTab('saved')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span class="tab-label">Saved</span></button><button class="tab-btn" data-tab="profile" onclick="switchTab('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg><span class="tab-label">Profile</span></button></nav>
+<nav class="bottom-tabs"><button class="tab-btn active" data-tab="home" onclick="switchTab('home')"><svg viewBox="0 0 24 24"><path d="M3 12l9-9 9 9"/><path d="M5 10v10h14V10"/></svg><span class="tab-label">Home</span></button><button class="tab-btn" data-tab="discover" onclick="switchTab('discover')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 8v8"/></svg><span class="tab-label">Discover</span></button><button class="tab-btn" data-tab="edit" onclick="switchTab('edit')"><svg viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg><span class="tab-label">一键P图</span></button><button class="tab-btn" data-tab="saved" onclick="switchTab('saved')"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><span class="tab-label">Saved</span></button><button class="tab-btn" data-tab="profile" onclick="switchTab('profile')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 016-6h4a6 6 0 016 6v1"/></svg><span class="tab-label">Profile</span></button></nav>
 <div class="story-viewer" id="storyViewer"><div class="story-viewer-content"><div class="story-progress-bar"><div class="story-progress-fill" id="storyProgress"></div></div><div class="story-viewer-header"><img id="svAvatar" src="" alt=""><div><div class="sv-name" id="svName"></div><div class="sv-time" id="svTime"></div></div></div><button class="story-viewer-close" onclick="closeStory()"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button><img class="story-viewer-image" id="svImage" src="" alt=""><div class="story-viewer-caption" id="svCaption"></div></div></div>
 <div class="article-page" id="articlePage"><nav class="article-nav"><button class="article-back" onclick="closeArticle()"><svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button><div class="article-nav-title" id="articleNavTitle"></div></nav><div class="article-hero"><img id="articleHero" src="" alt=""></div><div class="article-body" id="articleBody"></div><div class="article-actions-bar" id="articleActionsBar"></div></div>
 <div class="toast" id="toast"></div>
 
 <script>
 "use strict";
-// DATA
 var storyData=[
 {id:"my",name:"Your Story",avatar:"https://images.unsplash.com/photo-1500628960416-4f05b9b503d3?w=200&q=80",isMy:true,active:false},
 {id:"s1",name:"Elena Marsh",avatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=800&q=85",caption:"Golden hour silhouette study - f/1.4, 85mm",time:"2h ago",active:true,field:"Portrait"},
@@ -206,22 +240,14 @@ var storyData=[
 {id:"s7",name:"Kai Tanaka",avatar:"https://images.unsplash.com/photo-1545996124-0501ebae84d0?w=200&q=80",image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=800&q=85",caption:"Lens flare test - anamorphic 40mm T2.2",time:"18h ago",active:false,field:"Cinematography"},
 {id:"s8",name:"Isabella Romano",avatar:"https://images.unsplash.com/photo-1554151228-14d9def656e4?w=200&q=80",image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=800&q=85",caption:"Color grading reference - filmic midtones",time:"22h ago",active:false,field:"Color Grade"}
 ];
-
 var feedData=[
-{id:1,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Natural Light Portrait Composition Skills",subtitle:"A practical breakdown of how to read direction, quality, and ratio of natural light for compelling outdoor portraits.",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"3 min Read",tags:["Light & Shadow","Composition"],likes:2847,comments:142,saves:891,liked:false,saved:false,category:"Photography",
-article:{lead:"Natural light is the most powerful and most misunderstood tool in portrait photography. Unlike studio strobes, it cannot be controlled - only understood, anticipated, and directed.",sections:[{h:"Direction: Where the Light Comes From",p:"The angle between your subject, the light source, and your camera determines everything. Front lighting flattens features. Side lighting reveals texture and form. Backlighting creates separation and atmosphere."},{h:"Quality: Hard vs Soft",p:"Cloud cover, atmospheric haze, and reflection from buildings all affect light quality. Overcast skies act as a giant softbox, wrapping light gently around facial structures."},{h:"Ratio: The Gap Between Highlights and Shadows",p:"A 2:1 ratio produces soft, flattering portraits. A 4:1 ratio adds drama. Beyond 8:1, you enter chiaroscuro territory - powerful but unforgiving."},{h:"Color Temperature: Warmth Tells Time",p:"Early morning light sits around 2000K-3000K. Midday sun approaches 5500K. Late afternoon shifts back to 3200K. These shifts are mood, not flaws."}],quote:"The best natural light photographers do not chase perfect conditions - they read imperfect light and find the portrait it wants to create.",date:"Jul 28, 2026"}},
-{id:2,image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=900&q=85",title:"Cinema Video Tracking Shot Guide",subtitle:"Master the tracking shot - from gimbal fundamentals to blocking actor movement for cinematic continuous shots.",authorAvatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",authorName:"Sofia Chen",authorTag:"Cinematographer",readTime:"5 min Read",tags:["Cinematography","Movement"],likes:4102,comments:287,saves:1543,liked:true,saved:false,category:"Cinematography",
-article:{lead:"The tracking shot is one of cinema most expressive techniques - a continuous movement that guides the audience eye through space and time.",sections:[{h:"Gimbal Setup: Balance Before Movement",p:"A poorly balanced gimbal fights you on every move. Spend 15 minutes on static balance before powering on."},{h:"Walking Technique: The Ninja Step",p:"Roll your foot from heel to toe with bent knees, keeping your center of gravity constant. Practice walking sideways for smoother tracking."},{h:"Speed Matching: Mirror Your Subject",p:"If the camera moves faster than the subject, the background accelerates while the subject drifts. Lock your pace to the subject hip movement."},{h:"Blocking: Plan the Arc",p:"A tracking shot is choreography. Approaching the subject intensifies; retreating releases tension. Plan your arc to serve the story beat."}],quote:"Movement in cinema is not decoration. Every inch of camera travel must earn its place in the story.",date:"Jul 26, 2026"}},
-{id:3,image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=900&q=85",title:"Minimalist Architectural Photography Color Grading",subtitle:"A step-by-step color grading workflow for architectural images - from RAW correction to final muted matte finish.",authorAvatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",authorName:"Marcus Reed",authorTag:"Architectural Designer",readTime:"4 min Read",tags:["Color Grading","Architecture"],likes:1956,comments:98,saves:723,liked:false,saved:true,category:"Architecture",
-article:{lead:"Architectural photography demands precision. Unlike portraits, buildings do not have mood to hide behind - every line, surface, and shadow is scrutinized.",sections:[{h:"RAW Correction: Establish Neutrality",p:"Before creative grading, correct lens distortion, vertical perspective, and chromatic aberration. Set white balance using a neutral gray surface."},{h:"Tone Curve: Lift Shadows, Compress Highlights",p:"Create a soft S-curve but keep it gentle. Lift the black point by 8-12 points for a matte baseline. Compress highlights to preserve sky detail."},{h:"Color Separation: Split Toning",p:"Push shadows toward cool slate (Hue:210, Sat:8). Push highlights toward warm ivory (Hue:40, Sat:5). The split should be barely perceptible."},{h:"HSL Precision: Subdue the Spectrum",p:"Reduce all colors by 10-15%, then increase blue and orange by 5%. Desaturate greens heavily - they compete with architectural forms."}],quote:"In architectural grading, what you remove matters more than what you add.",date:"Jul 24, 2026"}},
-{id:4,image:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=85",title:"Lens Selection & Scene Adaptation Guide",subtitle:"Matching focal length to narrative intent - a field guide for choosing the right lens for every shooting scenario.",authorAvatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",authorName:"James Wright",authorTag:"Photography Director",readTime:"6 min Read",tags:["Lens Selection","Gear"],likes:3201,comments:215,saves:1208,liked:false,saved:false,category:"Photography",
-article:{lead:"Every focal length tells a different story. The lens you choose shapes perspective, compression, and emotional distance.",sections:[{h:"Wide Angle (24-35mm): Environment as Context",p:"Wide lenses include more scene. They exaggerate depth - objects close to the lens appear larger than life. Use for environmental portraits and interiors."},{h:"Standard (50mm): The Honest Eye",p:"50mm approximates human perspective compression. It neither flatters nor distorts - it records. This makes it the most truthful focal length."},{h:"Short Telephoto (85mm): Portrait Perfection",p:"85mm compresses facial features gently, producing flattering proportions. At f/1.4, it separates subject from background with creamy bokeh."},{h:"Long Telephoto (135-200mm): Isolation & Compression",p:"Long lenses compress distance, stacking background elements closer. This creates focused, intimate frames that eliminate distractions."}],quote:"A lens is not a window - it is a voice. The focal length you choose determines what your image says.",date:"Jul 22, 2026"}},
-{id:5,image:"https://images.unsplash.com/photo-1500614933-8286-6e6b938f7e22?w=900&q=85",title:"Studio Lighting: Single Softbox Mastery",subtitle:"How to create dimensional, professional portraits with just one light source - positioning, modifiers, and shadow control.",authorAvatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",authorName:"Adrian Voss",authorTag:"Studio Photographer",readTime:"3 min Read",tags:["Studio","Lighting"],likes:1689,comments:76,saves:645,liked:false,saved:false,category:"Studio",
-article:{lead:"One light is not a limitation - it is a discipline. When you remove the option of adding another light, you are forced to master shadow and distance.",sections:[{h:"Position: 45 and Slightly Above",p:"Place the softbox at 45 degrees to the subject face, angled downward at roughly 30 degrees. This is classic Rembrandt positioning."},{h:"Distance: Closer Softer, Farther Harder",p:"A softbox placed close produces wrapping, gentle light. Move it back and the same modifier produces harder shadows."},{h:"Fill: Bounce, Do Not Add",p:"A white reflector on the opposite side lifts shadows without adding a second light source. Position close for more fill, farther for less."},{h:"Background Control: Distance is Key",p:"The further your subject is from the background, the more the softbox light falls off before reaching it. At 2 meters, the background will be 2-3 stops darker."}],quote:"One light teaches you what light actually does. Multiple lights teach you what you can hide.",date:"Jul 20, 2026"}},
-{id:6,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Film Color Theory for Digital Cinematography",subtitle:"Understanding color harmony, complementary palettes, and emotional color scripts for modern digital workflows.",authorAvatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",authorName:"Nora Lindqvist",authorTag:"Color Theorist",readTime:"5 min Read",tags:["Color Theory","Cinematography"],likes:2456,comments:189,saves:987,liked:true,saved:true,category:"Color Grading",
-article:{lead:"Color in cinema is not decoration - it is narrative architecture. Before a single word of dialogue registers, color has already established mood.",sections:[{h:"Complementary: Tension in Contrast",p:"Blue and orange, teal and red - complementary pairs sit opposite on the color wheel. They create visual tension."},{h:"Analogous: Harmony and Calm",p:"Adjacent colors create harmony. Analogous palettes feel unified and calm. Use for scenes of stability or reflection."},{h:"Color Scripts: Emotional Arcs",p:"A color script maps the dominant color of each scene across an entire film. Pixar pioneered this. The script reveals emotional rhythm."},{h:"Saturation as Emotion",p:"High saturation signals intensity. Low saturation signals restraint. The shift between levels is more powerful than the level itself."}],quote:"Color is the first language the audience understands. It speaks before the story does.",date:"Jul 18, 2026"}}
+{id:1,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Natural Light Portrait Composition Skills",subtitle:"A practical breakdown of how to read direction, quality, and ratio of natural light for compelling outdoor portraits.",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"3 min Read",tags:["Light & Shadow","Composition"],likes:2847,comments:142,saves:891,liked:false,saved:false,category:"Photography",article:{lead:"Natural light is the most powerful and most misunderstood tool in portrait photography. Unlike studio strobes, it cannot be controlled - only understood, anticipated, and directed.",sections:[{h:"Direction: Where the Light Comes From",p:"The angle between your subject, the light source, and your camera determines everything. Front lighting flattens features. Side lighting reveals texture and form."},{h:"Quality: Hard vs Soft",p:"Cloud cover, atmospheric haze, and reflection from buildings all affect light quality. Overcast skies act as a giant softbox."},{h:"Ratio: The Gap Between Highlights and Shadows",p:"A 2:1 ratio produces soft, flattering portraits. A 4:1 ratio adds drama. Beyond 8:1, you enter chiaroscuro territory."},{h:"Color Temperature: Warmth Tells Time",p:"Early morning light sits around 2000K-3000K. Midday sun approaches 5500K. Late afternoon shifts back to 3200K."}],quote:"The best natural light photographers do not chase perfect conditions - they read imperfect light and find the portrait it wants to create.",date:"Jul 28, 2026"}},
+{id:2,image:"https://images.unsplash.com/photo-1502134249126-9f3755a50d78?w=900&q=85",title:"Cinema Video Tracking Shot Guide",subtitle:"Master the tracking shot - from gimbal fundamentals to blocking actor movement for cinematic continuous shots.",authorAvatar:"https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&q=80",authorName:"Sofia Chen",authorTag:"Cinematographer",readTime:"5 min Read",tags:["Cinematography","Movement"],likes:4102,comments:287,saves:1543,liked:true,saved:false,category:"Cinematography",article:{lead:"The tracking shot is one of cinema most expressive techniques - a continuous movement that guides the audience eye through space and time.",sections:[{h:"Gimbal Setup: Balance Before Movement",p:"A poorly balanced gimbal fights you on every move. Spend 15 minutes on static balance before powering on."},{h:"Walking Technique: The Ninja Step",p:"Roll your foot from heel to toe with bent knees, keeping your center of gravity constant."},{h:"Speed Matching: Mirror Your Subject",p:"If the camera moves faster than the subject, the background accelerates while the subject drifts."},{h:"Blocking: Plan the Arc",p:"A tracking shot is choreography. Approaching the subject intensifies; retreating releases tension."}],quote:"Movement in cinema is not decoration. Every inch of camera travel must earn its place in the story.",date:"Jul 26, 2026"}},
+{id:3,image:"https://images.unsplash.com/photo-1496588152823-86ff7695e68f?w=900&q=85",title:"Minimalist Architectural Photography Color Grading",subtitle:"A step-by-step color grading workflow for architectural images - from RAW correction to final muted matte finish.",authorAvatar:"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",authorName:"Marcus Reed",authorTag:"Architectural Designer",readTime:"4 min Read",tags:["Color Grading","Architecture"],likes:1956,comments:98,saves:723,liked:false,saved:true,category:"Architecture",article:{lead:"Architectural photography demands precision. Unlike portraits, buildings do not have mood to hide behind - every line, surface, and shadow is scrutinized.",sections:[{h:"RAW Correction: Establish Neutrality",p:"Before creative grading, correct lens distortion, vertical perspective, and chromatic aberration."},{h:"Tone Curve: Lift Shadows, Compress Highlights",p:"Create a soft S-curve but keep it gentle. Lift the black point by 8-12 points for a matte baseline."},{h:"Color Separation: Split Toning",p:"Push shadows toward cool slate (Hue:210, Sat:8). Push highlights toward warm ivory (Hue:40, Sat:5)."},{h:"HSL Precision: Subdue the Spectrum",p:"Reduce all colors by 10-15%, then increase blue and orange by 5%. Desaturate greens heavily."}],quote:"In architectural grading, what you remove matters more than what you add.",date:"Jul 24, 2026"}},
+{id:4,image:"https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=900&q=85",title:"Lens Selection & Scene Adaptation Guide",subtitle:"Matching focal length to narrative intent - a field guide for choosing the right lens for every shooting scenario.",authorAvatar:"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80",authorName:"James Wright",authorTag:"Photography Director",readTime:"6 min Read",tags:["Lens Selection","Gear"],likes:3201,comments:215,saves:1208,liked:false,saved:false,category:"Photography",article:{lead:"Every focal length tells a different story. The lens you choose shapes perspective, compression, and emotional distance.",sections:[{h:"Wide Angle (24-35mm): Environment as Context",p:"Wide lenses include more scene. They exaggerate depth - objects close to the lens appear larger than life."},{h:"Standard (50mm): The Honest Eye",p:"50mm approximates human perspective compression. It neither flatters nor distorts - it records."},{h:"Short Telephoto (85mm): Portrait Perfection",p:"85mm compresses facial features gently, producing flattering proportions. At f/1.4, it separates subject from background."},{h:"Long Telephoto (135-200mm): Isolation & Compression",p:"Long lenses compress distance, stacking background elements closer. This creates focused, intimate frames."}],quote:"A lens is not a window - it is a voice. The focal length you choose determines what your image says.",date:"Jul 22, 2026"}},
+{id:5,image:"https://images.unsplash.com/photo-1500614933-8286-6e6b938f7e22?w=900&q=85",title:"Studio Lighting: Single Softbox Mastery",subtitle:"How to create dimensional, professional portraits with just one light source - positioning, modifiers, and shadow control.",authorAvatar:"https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80",authorName:"Adrian Voss",authorTag:"Studio Photographer",readTime:"3 min Read",tags:["Studio","Lighting"],likes:1689,comments:76,saves:645,liked:false,saved:false,category:"Studio",article:{lead:"One light is not a limitation - it is a discipline. When you remove the option of adding another light, you are forced to master shadow and distance.",sections:[{h:"Position: 45 and Slightly Above",p:"Place the softbox at 45 degrees to the subject face, angled downward at roughly 30 degrees."},{h:"Distance: Closer Softer, Farther Harder",p:"A softbox placed close produces wrapping, gentle light. Move it back and the same modifier produces harder shadows."},{h:"Fill: Bounce, Do Not Add",p:"A white reflector on the opposite side lifts shadows without adding a second light source."},{h:"Background Control: Distance is Key",p:"The further your subject is from the background, the more the softbox light falls off before reaching it."}],quote:"One light teaches you what light actually does. Multiple lights teach you what you can hide.",date:"Jul 20, 2026"}},
+{id:6,image:"https://images.unsplash.com/photo-1500336624523-d727130c3328?w=900&q=85",title:"Film Color Theory for Digital Cinematography",subtitle:"Understanding color harmony, complementary palettes, and emotional color scripts for modern digital workflows.",authorAvatar:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80",authorName:"Nora Lindqvist",authorTag:"Color Theorist",readTime:"5 min Read",tags:["Color Theory","Cinematography"],likes:2456,comments:189,saves:987,liked:true,saved:true,category:"Color Grading",article:{lead:"Color in cinema is not decoration - it is narrative architecture. Before a single word of dialogue registers, color has already established mood.",sections:[{h:"Complementary: Tension in Contrast",p:"Blue and orange, teal and red - complementary pairs sit opposite on the color wheel. They create visual tension."},{h:"Analogous: Harmony and Calm",p:"Adjacent colors create harmony. Analogous palettes feel unified and calm."},{h:"Color Scripts: Emotional Arcs",p:"A color script maps the dominant color of each scene across an entire film. Pixar pioneered this."},{h:"Saturation as Emotion",p:"High saturation signals intensity. Low saturation signals restraint. The shift between levels is more powerful than the level itself."}],quote:"Color is the first language the audience understands. It speaks before the story does.",date:"Jul 18, 2026"}}
 ];
-
 var categories=["All","Photography","Cinematography","Visual Design","Color Grading","Studio","Architecture"];
 var allTags=["Light & Shadow","Composition","Cinematography","Movement","Color Grading","Architecture","Lens Selection","Gear","Studio","Lighting","Color Theory"];
 var userPosts=[];
@@ -229,249 +255,255 @@ var selectedTags=[];
 var uploadedImage="";
 var toastTimer=null;
 var storyTimer=null;
-
-// UTILS
 function fmt(n){return n>=1000?(n/1000).toFixed(1)+"K":""+n}
 function showToast(msg){var t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.classList.remove("show")},2000)}
 function getAllPosts(){return userPosts.concat(feedData)}
 function findPost(id){return feedData.find(function(c){return c.id===id})||userPosts.find(function(c){return c.id===id})}
-
-// SVG icons
-var ico={heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
-comment:'<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>',
-bookmark:'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>',
-share:'<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>'};
-
-function cardHTML(c){
- var tags=c.tags.map(function(t){return '<span class="card-tag">'+t+'</span>'}).join("");
- return '<article class="feed-card" data-id="'+c.id+'"><div class="card-image-wrapper"><img class="card-image" src="'+c.image+'" alt="'+c.title+'" loading="lazy"><div class="card-image-gradient"></div></div><div class="card-content"><h2 class="card-title">'+c.title+'</h2><p class="card-subtitle">'+c.subtitle+'</p><div class="card-author-row"><div class="author-info"><img class="author-avatar" src="'+c.authorAvatar+'" alt="" loading="lazy"><div><div class="author-name">'+c.authorName+'</div><div class="author-tag">'+c.authorTag+'</div></div></div><div class="card-meta"><span class="read-time">'+c.readTime+'</span>'+tags+'</div></div><div class="card-actions"><button class="action-btn'+(c.liked?" liked":"")+'" data-act="like" data-id="'+c.id+'">'+ico.heart+'<span class="action-count">'+fmt(c.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+c.id+'">'+ico.comment+'<span class="action-count">'+fmt(c.comments)+'</span></button><button class="action-btn'+(c.saved?" saved":"")+'" data-act="save" data-id="'+c.id+'">'+ico.bookmark+'<span class="action-count">'+fmt(c.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+c.id+'">'+ico.share+'<span class="action-count">Share</span></button></div></div></article>';
-}
-
-// Event delegation for feed cards
-document.addEventListener("click",function(e){
- var btn=e.target.closest("[data-act]");
- if(btn){
-  e.stopPropagation();
-  var act=btn.dataset.act;
-  var id=parseInt(btn.dataset.id);
-  if(!isNaN(id)){
-   if(act==="like"){var c=findPost(id);if(c){c.liked=!c.liked;c.likes+=c.liked?1:-1;btn.classList.toggle("liked");btn.querySelector(".action-count").textContent=fmt(c.likes);if(c.liked)showToast("Liked")}}
-   else if(act==="save"){var c=findPost(id);if(c){c.saved=!c.saved;c.saves+=c.saved?1:-1;btn.classList.toggle("saved");btn.querySelector(".action-count").textContent=fmt(c.saves);if(c.saved)showToast("Saved to collection")}}
-   else if(act==="comment"){showToast("Comments coming soon")}
-   else if(act==="share"){var c=findPost(id);if(c){if(navigator.share){navigator.share({title:c.title,text:"Check this out"}).catch(function(){})}else{showToast("Share link copied")}}}
-   return;
-  }
- }
- var card=e.target.closest(".feed-card[data-id]");
- if(card){
-  var cid=parseInt(card.dataset.id);
-  if(!isNaN(cid))openArticle(cid);
- }
-});
-
-// TAB SWITCH
-function switchTab(tab){
- document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active")});
- var tb=document.querySelector("[data-tab='"+tab+"']");if(tb)tb.classList.add("active");
- document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});
- var pg=document.getElementById("page-"+tab);if(pg)pg.classList.add("active");
- window.scrollTo({top:0,behavior:"smooth"});
- if(tab==="discover")renderDiscover();
- if(tab==="saved")renderSaved();
- if(tab==="profile")renderProfile();
- if(tab==="create")initCreate();
-}
-
-// STORIES
-function renderStories(){
- document.getElementById("storyBar").innerHTML=storyData.map(function(s){
-  var cls=s.isMy?"my-story":(s.active?"active":"inactive");
-  var badge=s.isMy?'<div class="add-badge"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>':"";
-  var label=s.isMy?"Your Story":s.name.split(" ")[0];
-  return '<div class="story-item" data-sid="'+s.id+'"><div class="story-ring '+cls+'"><img class="sa" src="'+s.avatar+'" alt="" loading="lazy">'+badge+'</div><div class="story-label">'+label+'</div></div>';
- }).join("");
-}
-document.addEventListener("click",function(e){
- var si=e.target.closest("[data-sid]");
- if(si){
-  var sid=si.dataset.sid;
-  var s=storyData.find(function(x){return x.id===sid});
-  if(!s)return;
-  if(s.isMy){switchTab("create");return}
-  document.getElementById("svAvatar").src=s.avatar;
-  document.getElementById("svName").textContent=s.name;
-  document.getElementById("svTime").textContent=s.time;
-  document.getElementById("svImage").src=s.image;
-  document.getElementById("svCaption").textContent=s.caption;
-  document.getElementById("storyViewer").classList.add("open");
-  var p=document.getElementById("storyProgress");p.style.width="0%";
-  var pct=0;clearInterval(storyTimer);
-  storyTimer=setInterval(function(){pct+=1.5;p.style.width=pct+"%";if(pct>=100)closeStory()},100);
- }
-});
+var ico={heart:'<svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',comment:'<svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>',bookmark:'<svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg>',share:'<svg viewBox="0 0 24 24"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg>'};
+function cardHTML(c){var tags=c.tags.map(function(t){return '<span class="card-tag">'+t+'</span>'}).join("");return '<article class="feed-card" data-id="'+c.id+'"><div class="card-image-wrapper"><img class="card-image" src="'+c.image+'" alt="'+c.title+'" loading="lazy"><div class="card-image-gradient"></div></div><div class="card-content"><h2 class="card-title">'+c.title+'</h2><p class="card-subtitle">'+c.subtitle+'</p><div class="card-author-row"><div class="author-info"><img class="author-avatar" src="'+c.authorAvatar+'" alt="" loading="lazy"><div><div class="author-name">'+c.authorName+'</div><div class="author-tag">'+c.authorTag+'</div></div></div><div class="card-meta"><span class="read-time">'+c.readTime+'</span>'+tags+'</div></div><div class="card-actions"><button class="action-btn'+(c.liked?" liked":"")+'" data-act="like" data-id="'+c.id+'">'+ico.heart+'<span class="action-count">'+fmt(c.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+c.id+'">'+ico.comment+'<span class="action-count">'+fmt(c.comments)+'</span></button><button class="action-btn'+(c.saved?" saved":"")+'" data-act="save" data-id="'+c.id+'">'+ico.bookmark+'<span class="action-count">'+fmt(c.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+c.id+'">'+ico.share+'<span class="action-count">Share</span></button></div></div></article>'}
+document.addEventListener("click",function(e){var btn=e.target.closest("[data-act]");if(btn){e.stopPropagation();var act=btn.dataset.act;var id=parseInt(btn.dataset.id);if(!isNaN(id)){if(act==="like"){var c=findPost(id);if(c){c.liked=!c.liked;c.likes+=c.liked?1:-1;btn.classList.toggle("liked");btn.querySelector(".action-count").textContent=fmt(c.likes);if(c.liked)showToast("Liked")}}else if(act==="save"){var c=findPost(id);if(c){c.saved=!c.saved;c.saves+=c.saved?1:-1;btn.classList.toggle("saved");btn.querySelector(".action-count").textContent=fmt(c.saves);if(c.saved)showToast("Saved to collection")}}else if(act==="comment"){showToast("Comments coming soon")}else if(act==="share"){var c=findPost(id);if(c){if(navigator.share){navigator.share({title:c.title,text:"Check this out"}).catch(function(){})}else{showToast("Share link copied")}}}return}}var card=e.target.closest(".feed-card[data-id]");if(card){var cid=parseInt(card.dataset.id);if(!isNaN(cid))openArticle(cid)}});
+function switchTab(tab){document.querySelectorAll(".tab-btn").forEach(function(b){b.classList.remove("active")});var tb=document.querySelector("[data-tab='"+tab+"']");if(tb)tb.classList.add("active");document.querySelectorAll(".page").forEach(function(p){p.classList.remove("active")});var pg=document.getElementById("page-"+tab);if(pg)pg.classList.add("active");window.scrollTo({top:0,behavior:"smooth"});if(tab==="discover")renderDiscover();if(tab==="saved")renderSaved();if(tab==="profile")renderProfile();if(tab==="create")initCreate();if(tab==="edit")initEdit()}
+function renderStories(){document.getElementById("storyBar").innerHTML=storyData.map(function(s){var cls=s.isMy?"my-story":(s.active?"active":"inactive");var badge=s.isMy?'<div class="add-badge"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div>':"";var label=s.isMy?"Your Story":s.name.split(" ")[0];return '<div class="story-item" data-sid="'+s.id+'"><div class="story-ring '+cls+'"><img class="sa" src="'+s.avatar+'" alt="" loading="lazy">'+badge+'</div><div class="story-label">'+label+'</div></div>'}).join("")}
+document.addEventListener("click",function(e){var si=e.target.closest("[data-sid]");if(si){var sid=si.dataset.sid;var s=storyData.find(function(x){return x.id===sid});if(!s)return;if(s.isMy){switchTab("create");return}document.getElementById("svAvatar").src=s.avatar;document.getElementById("svName").textContent=s.name;document.getElementById("svTime").textContent=s.time;document.getElementById("svImage").src=s.image;document.getElementById("svCaption").textContent=s.caption;document.getElementById("storyViewer").classList.add("open");var p=document.getElementById("storyProgress");p.style.width="0%";var pct=0;clearInterval(storyTimer);storyTimer=setInterval(function(){pct+=1.5;p.style.width=pct+"%";if(pct>=100)closeStory()},100)}});
 function closeStory(){document.getElementById("storyViewer").classList.remove("open");clearInterval(storyTimer)}
-
-// FEED
 function renderFeed(){document.getElementById("feed").innerHTML=getAllPosts().map(cardHTML).join("")}
-
-// ARTICLE
-function openArticle(id){
- var card=findPost(id);if(!card)return;
- document.getElementById("articleNavTitle").textContent=card.authorName;
- document.getElementById("articleHero").src=card.image;
- var html='<h1 class="article-title">'+card.title+'</h1><p class="article-subtitle">'+card.subtitle+'</p>';
- html+='<div class="article-author-bar"><img src="'+card.authorAvatar+'" alt=""><div><div class="article-author-name">'+card.authorName+'</div><div class="article-author-tag">'+card.authorTag+'</div></div><div class="article-read-info"><span class="article-read-time">'+card.readTime+'</span><span class="article-date">'+(card.article?card.article.date:"Jul 31, 2026")+'</span></div></div>';
- if(card.article){
-  html+='<div class="article-text"><p class="lead">'+card.article.lead+'</p>';
-  card.article.sections.forEach(function(sec){html+='<h3>'+sec.h+'</h3><p>'+sec.p+'</p>'});
-  html+='<div class="quote">'+card.article.quote+'</div></div>';
- }else{
-  html+='<div class="article-text"><p class="lead">'+card.subtitle+'</p><p>'+(card.description||"")+'</p></div>';
- }
- html+='<div class="article-tags">'+card.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'<span class="tag">'+card.readTime+'</span></div>';
- document.getElementById("articleBody").innerHTML=html;
- document.getElementById("articleActionsBar").innerHTML='<button class="action-btn'+(card.liked?" liked":"")+'" data-act="like" data-id="'+id+'">'+ico.heart+'<span class="action-count">'+fmt(card.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+id+'">'+ico.comment+'<span class="action-count">'+fmt(card.comments)+'</span></button><button class="action-btn'+(card.saved?" saved":"")+'" data-act="save" data-id="'+id+'">'+ico.bookmark+'<span class="action-count">'+fmt(card.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+id+'">'+ico.share+'<span class="action-count">Share</span></button>';
- document.getElementById("articlePage").classList.add("open");
-}
+function openArticle(id){var card=findPost(id);if(!card)return;document.getElementById("articleNavTitle").textContent=card.authorName;document.getElementById("articleHero").src=card.image;var html='<h1 class="article-title">'+card.title+'</h1><p class="article-subtitle">'+card.subtitle+'</p><div class="article-author-bar"><img src="'+card.authorAvatar+'" alt=""><div><div class="article-author-name">'+card.authorName+'</div><div class="article-author-tag">'+card.authorTag+'</div></div><div class="article-read-info"><span class="article-read-time">'+card.readTime+'</span><span class="article-date">'+(card.article?card.article.date:"Jul 31, 2026")+'</span></div></div>';if(card.article){html+='<div class="article-text"><p class="lead">'+card.article.lead+'</p>';card.article.sections.forEach(function(sec){html+='<h3>'+sec.h+'</h3><p>'+sec.p+'</p>'});html+='<div class="quote">'+card.article.quote+'</div></div>'}else{html+='<div class="article-text"><p class="lead">'+card.subtitle+'</p><p>'+(card.description||"")+'</p></div>'}html+='<div class="article-tags">'+card.tags.map(function(t){return '<span class="tag">'+t+'</span>'}).join("")+'<span class="tag">'+card.readTime+'</span></div>';document.getElementById("articleBody").innerHTML=html;document.getElementById("articleActionsBar").innerHTML='<button class="action-btn'+(card.liked?" liked":"")+'" data-act="like" data-id="'+id+'">'+ico.heart+'<span class="action-count">'+fmt(card.likes)+'</span></button><button class="action-btn" data-act="comment" data-id="'+id+'">'+ico.comment+'<span class="action-count">'+fmt(card.comments)+'</span></button><button class="action-btn'+(card.saved?" saved":"")+'" data-act="save" data-id="'+id+'">'+ico.bookmark+'<span class="action-count">'+fmt(card.saves)+'</span></button><button class="action-btn" data-act="share" data-id="'+id+'">'+ico.share+'<span class="action-count">Share</span></button>';document.getElementById("articlePage").classList.add("open")}
 function closeArticle(){document.getElementById("articlePage").classList.remove("open")}
-
-// DISCOVER
-function renderDiscover(){
- document.getElementById("categoryChips").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-cat="'+c+'">'+c+'</div>'}).join("");
- document.getElementById("trendingGrid").innerHTML=feedData.slice(0,4).map(function(c){return '<div class="trending-card" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"><div class="trending-card-body"><div class="trending-card-title">'+c.title+'</div><div class="trending-card-meta">'+c.authorName+" - "+fmt(c.likes)+" likes</div></div></div>"}).join("");
- document.getElementById("featuredCreators").innerHTML=storyData.filter(function(s){return !s.isMy}).map(function(s){return '<div class="creator-card" data-creator="'+s.name+'"><img src="'+s.avatar+'" alt="" loading="lazy"><div class="creator-card-body"><div class="creator-card-name">'+s.name+'</div><div class="creator-card-field">'+(s.field||"Photography")+'</div></div></div>'}).join("");
- document.getElementById("discoverFeed").innerHTML=getAllPosts().map(cardHTML).join("");
-}
-document.addEventListener("click",function(e){
- var chip=e.target.closest(".chip[data-cat]");
- if(chip){
-  document.querySelectorAll(".category-chips .chip").forEach(function(c){c.classList.remove("active")});
-  chip.classList.add("active");
-  var cat=chip.dataset.cat;
-  var dc=document.getElementById("discoverContent");
-  if(cat==="All"){dc.style.display="";document.getElementById("searchResults").style.display="none";return}
-  var filtered=feedData.filter(function(c){return c.category===cat});
-  document.getElementById("searchResults").style.display="block";
-  document.getElementById("searchResults").innerHTML='<div class="search-results"><div class="section-title">'+cat+" Articles</div>"+filtered.map(cardHTML).join("")+'</div>';
-  dc.style.display="none";
- }
- var tc=e.target.closest(".trending-card[data-id]");
- if(tc){var tid=parseInt(tc.dataset.id);if(!isNaN(tid))openArticle(tid)}
- var cc=e.target.closest("[data-creator]");
- if(cc){showToast("Opening "+cc.dataset.creator+" profile")}
-});
-
+function renderDiscover(){document.getElementById("categoryChips").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-cat="'+c+'">'+c+'</div>'}).join("");document.getElementById("trendingGrid").innerHTML=feedData.slice(0,4).map(function(c){return '<div class="trending-card" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"><div class="trending-card-body"><div class="trending-card-title">'+c.title+'</div><div class="trending-card-meta">'+c.authorName+" - "+fmt(c.likes)+" likes</div></div></div>"}).join("");document.getElementById("featuredCreators").innerHTML=storyData.filter(function(s){return !s.isMy}).map(function(s){return '<div class="creator-card" data-creator="'+s.name+'"><img src="'+s.avatar+'" alt="" loading="lazy"><div class="creator-card-body"><div class="creator-card-name">'+s.name+'</div><div class="creator-card-field">'+(s.field||"Photography")+'</div></div></div>'}).join("");document.getElementById("discoverFeed").innerHTML=getAllPosts().map(cardHTML).join("")}
+document.addEventListener("click",function(e){var chip=e.target.closest(".chip[data-cat]");if(chip){document.querySelectorAll(".category-chips .chip").forEach(function(c){c.classList.remove("active")});chip.classList.add("active");var cat=chip.dataset.cat;var dc=document.getElementById("discoverContent");if(cat==="All"){dc.style.display="";document.getElementById("searchResults").style.display="none";return}var filtered=feedData.filter(function(c){return c.category===cat});document.getElementById("searchResults").style.display="block";document.getElementById("searchResults").innerHTML='<div class="search-results"><div class="section-title">'+cat+" Articles</div>"+filtered.map(cardHTML).join("")+'</div>';dc.style.display="none"}var tc=e.target.closest(".trending-card[data-id]");if(tc){var tid=parseInt(tc.dataset.id);if(!isNaN(tid))openArticle(tid)}var cc=e.target.closest("[data-creator]");if(cc){showToast("Opening "+cc.dataset.creator+" profile")}});
 function focusSearch(){switchTab("discover");setTimeout(function(){document.getElementById("searchInput").focus()},300)}
-function handleSearch(val){
- if(!val||val.trim().length<1){document.getElementById("discoverContent").style.display="";document.getElementById("searchResults").style.display="none";return}
- val=val.toLowerCase().trim();
- document.getElementById("discoverContent").style.display="none";
- var results=getAllPosts().filter(function(c){return c.title.toLowerCase().indexOf(val)>=0||c.subtitle.toLowerCase().indexOf(val)>=0||c.authorName.toLowerCase().indexOf(val)>=0||c.tags.some(function(t){return t.toLowerCase().indexOf(val)>=0})||c.category.toLowerCase().indexOf(val)>=0});
- var sr=document.getElementById("searchResults");sr.style.display="block";
- if(results.length===0){sr.innerHTML='<div class="search-results"><div class="no-results"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><p>No results found</p></div></div>'}
- else{sr.innerHTML='<div class="search-results"><div class="section-title">'+results.length+' Results</div>'+results.map(cardHTML).join("")+'</div>'}
-}
+function handleSearch(val){if(!val||val.trim().length<1){document.getElementById("discoverContent").style.display="";document.getElementById("searchResults").style.display="none";return}val=val.toLowerCase().trim();document.getElementById("discoverContent").style.display="none";var results=getAllPosts().filter(function(c){return c.title.toLowerCase().indexOf(val)>=0||c.subtitle.toLowerCase().indexOf(val)>=0||c.authorName.toLowerCase().indexOf(val)>=0||c.tags.some(function(t){return t.toLowerCase().indexOf(val)>=0})||c.category.toLowerCase().indexOf(val)>=0});var sr=document.getElementById("searchResults");sr.style.display="block";if(results.length===0){sr.innerHTML='<div class="search-results"><div class="no-results"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg><p>No results found</p></div></div>'}else{sr.innerHTML='<div class="search-results"><div class="section-title">'+results.length+' Results</div>'+results.map(cardHTML).join("")+'</div>'}}
 function doSearch(){handleSearch(document.getElementById("searchInput").value)}
-
-// CREATE
-function initCreate(){
- if(document.getElementById("createTagsRow").children.length===0){
-  document.getElementById("createTagsRow").innerHTML=allTags.map(function(t){return '<div class="create-tag-option" data-tag="'+t+'">'+t+'</div>'}).join("");
- }
-}
-document.addEventListener("click",function(e){
- var tg=e.target.closest(".create-tag-option[data-tag]");
- if(tg){
-  tg.classList.toggle("selected");
-  var tag=tg.dataset.tag;
-  if(tg.classList.contains("selected")){selectedTags.push(tag)}
-  else{selectedTags=selectedTags.filter(function(t){return t!==tag})}
- }
-});
+function initCreate(){if(document.getElementById("createTagsRow").children.length===0){document.getElementById("createTagsRow").innerHTML=allTags.map(function(t){return '<div class="create-tag-option" data-tag="'+t+'">'+t+'</div>'}).join("")}}
+document.addEventListener("click",function(e){var tg=e.target.closest(".create-tag-option[data-tag]");if(tg){tg.classList.toggle("selected");var tag=tg.dataset.tag;if(tg.classList.contains("selected")){selectedTags.push(tag)}else{selectedTags=selectedTags.filter(function(t){return t!==tag})}}});
 function triggerUpload(){document.getElementById("fileInput").click()}
-function handleUpload(e){
- var file=e.target.files[0];if(!file)return;
- var reader=new FileReader();
- reader.onload=function(ev){uploadedImage=ev.target.result;var a=document.getElementById("uploadArea");a.classList.add("has-image");a.innerHTML='<img src="'+uploadedImage+'" alt="preview">';var inp=document.createElement("input");inp.type="file";inp.id="fileInput";inp.accept="image/*";inp.style.display="none";inp.onchange=handleUpload;a.appendChild(inp)};
- reader.readAsDataURL(file);
-}
-function publishWork(){
- var title=document.getElementById("createTitle").value.trim();
- var desc=document.getElementById("createDesc").value.trim();
- var cat=document.getElementById("createCategory").value;
- if(!uploadedImage){showToast("Please upload an image first");return}
- if(!title){showToast("Please enter a title");return}
- if(!cat){showToast("Please select a category");return}
- var np={id:Date.now(),image:uploadedImage,title:title,subtitle:desc||"New creative work",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"1 min Read",tags:selectedTags.length>0?selectedTags.slice(0,3):[cat],likes:0,comments:0,saves:0,liked:false,saved:false,category:cat,description:desc};
- userPosts.unshift(np);
- uploadedImage="";selectedTags=[];
- document.getElementById("createTitle").value="";document.getElementById("createDesc").value="";document.getElementById("createCategory").value="";
- var area=document.getElementById("uploadArea");area.classList.remove("has-image");
- area.innerHTML='<div class="create-upload-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><p>Tap to upload your work</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">';
- document.querySelectorAll(".create-tag-option").forEach(function(el){el.classList.remove("selected")});
- renderFeed();showToast("Published successfully!");switchTab("home");
-}
-
-// SAVED
-function renderSaved(){
- var saved=getAllPosts().filter(function(c){return c.saved});
- document.getElementById("savedFilters").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-scat="'+c+'">'+c+'</div>'}).join("");
- renderSavedList(saved);
-}
-function renderSavedList(items){
- var el=document.getElementById("savedList");
- if(items.length===0){el.innerHTML='<div class="saved-empty"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><p>No saved articles yet</p><p style="font-size:13px;margin-top:4px">Tap the bookmark icon on any article to save it</p></div>';return}
- el.innerHTML=items.map(cardHTML).join("");
-}
-document.addEventListener("click",function(e){
- var sc=e.target.closest("[data-scat]");
- if(sc){
-  document.querySelectorAll("#savedFilters .chip").forEach(function(c){c.classList.remove("active")});
-  sc.classList.add("active");
-  var cat=sc.dataset.scat;
-  var saved=getAllPosts().filter(function(c){return c.saved});
-  if(cat!=="All")saved=saved.filter(function(c){return c.category===cat});
-  renderSavedList(saved);
- }
-});
-
-// PROFILE
-function renderProfile(){
- var grid=document.getElementById("profileGrid");
- var imgs=getAllPosts().map(function(c){return c.image}).concat(feedData.slice(0,2).map(function(c){return c.image}));
- grid.innerHTML=imgs.map(function(src,i){return '<div class="profile-grid-item" data-pidx="'+i+'"><img src="'+src+'" alt="" loading="lazy"></div>'}).join("");
-}
-document.addEventListener("click",function(e){
- var pt=e.target.closest(".profile-tab");
- if(pt&&!pt.classList.contains("active")){
-  document.querySelectorAll(".profile-tab").forEach(function(t){t.classList.remove("active")});
-  pt.classList.add("active");
-  var type=pt.textContent.toLowerCase().trim();
-  var grid=document.getElementById("profileGrid");
-  if(type==="saved"){
-   var sv=feedData.filter(function(c){return c.saved});
-   if(sv.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8A8A8A;font-size:13px">No saved posts</div>'}
-   else{grid.innerHTML=sv.map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")}
-  }else if(type==="tagged"){
-   grid.innerHTML=feedData.slice(2,6).map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")
-  }else{renderProfile()}
- }
- var pg=e.target.closest("[data-pidx]");
- if(pg){showToast("Opening post")}
- var pgid=e.target.closest(".profile-grid-item[data-id]");
- if(pgid){var pid=parseInt(pgid.dataset.id);if(!isNaN(pid))openArticle(pid)}
-});
-
-// PULL REFRESH
+function handleUpload(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(ev){uploadedImage=ev.target.result;var a=document.getElementById("uploadArea");a.classList.add("has-image");a.innerHTML='<img src="'+uploadedImage+'" alt="preview">';var inp=document.createElement("input");inp.type="file";inp.id="fileInput";inp.accept="image/*";inp.style.display="none";inp.onchange=handleUpload;a.appendChild(inp)};reader.readAsDataURL(file)}
+function publishWork(){var title=document.getElementById("createTitle").value.trim();var desc=document.getElementById("createDesc").value.trim();var cat=document.getElementById("createCategory").value;if(!uploadedImage){showToast("Please upload an image first");return}if(!title){showToast("Please enter a title");return}if(!cat){showToast("Please select a category");return}var np={id:Date.now(),image:uploadedImage,title:title,subtitle:desc||"New creative work",authorAvatar:"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",authorName:"Elena Marsh",authorTag:"Professional Photographer",readTime:"1 min Read",tags:selectedTags.length>0?selectedTags.slice(0,3):[cat],likes:0,comments:0,saves:0,liked:false,saved:false,category:cat,description:desc};userPosts.unshift(np);uploadedImage="";selectedTags=[];document.getElementById("createTitle").value="";document.getElementById("createDesc").value="";document.getElementById("createCategory").value="";var area=document.getElementById("uploadArea");area.classList.remove("has-image");area.innerHTML='<div class="create-upload-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M12 8v8M8 12h8"/></svg><p>Tap to upload your work</p></div><input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleUpload(event)">';document.querySelectorAll(".create-tag-option").forEach(function(el){el.classList.remove("selected")});renderFeed();showToast("Published successfully!");switchTab("home")}
+function renderSaved(){var saved=getAllPosts().filter(function(c){return c.saved});document.getElementById("savedFilters").innerHTML=categories.map(function(c,i){return '<div class="chip'+(i===0?" active":"")+'" data-scat="'+c+'">'+c+'</div>'}).join("");renderSavedList(saved)}
+function renderSavedList(items){var el=document.getElementById("savedList");if(items.length===0){el.innerHTML='<div class="saved-empty"><svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/></svg><p>No saved articles yet</p><p style="font-size:13px;margin-top:4px">Tap the bookmark icon on any article to save it</p></div>';return}el.innerHTML=items.map(cardHTML).join("")}
+document.addEventListener("click",function(e){var sc=e.target.closest("[data-scat]");if(sc){document.querySelectorAll("#savedFilters .chip").forEach(function(c){c.classList.remove("active")});sc.classList.add("active");var cat=sc.dataset.scat;var saved=getAllPosts().filter(function(c){return c.saved});if(cat!=="All")saved=saved.filter(function(c){return c.category===cat});renderSavedList(saved)}});
+function renderProfile(){var grid=document.getElementById("profileGrid");var imgs=getAllPosts().map(function(c){return c.image}).concat(feedData.slice(0,2).map(function(c){return c.image}));grid.innerHTML=imgs.map(function(src,i){return '<div class="profile-grid-item" data-pidx="'+i+'"><img src="'+src+'" alt="" loading="lazy"></div>'}).join("")}
+document.addEventListener("click",function(e){var pt=e.target.closest(".profile-tab");if(pt&&!pt.classList.contains("active")){document.querySelectorAll(".profile-tab").forEach(function(t){t.classList.remove("active")});pt.classList.add("active");var type=pt.textContent.toLowerCase().trim();var grid=document.getElementById("profileGrid");if(type==="saved"){var sv=feedData.filter(function(c){return c.saved});if(sv.length===0){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:40px;color:#8A8A8A;font-size:13px">No saved posts</div>'}else{grid.innerHTML=sv.map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")}}else if(type==="tagged"){grid.innerHTML=feedData.slice(2,6).map(function(c){return '<div class="profile-grid-item" data-id="'+c.id+'"><img src="'+c.image+'" alt="" loading="lazy"></div>'}).join("")}else{renderProfile()}}var pg=e.target.closest("[data-pidx]");if(pg){showToast("Opening post")}var pgid=e.target.closest(".profile-grid-item[data-id]");if(pgid){var pid=parseInt(pgid.dataset.id);if(!isNaN(pid))openArticle(pid)}});
 var pullStart=0,pulling=false;
 window.addEventListener("touchstart",function(e){if(window.scrollY===0){pullStart=e.touches[0].clientY;pulling=true}},{passive:true});
 window.addEventListener("touchmove",function(e){if(!pulling)return;var diff=e.touches[0].clientY-pullStart;var pi=document.getElementById("pullIndicator");if(diff>60&&window.scrollY===0){pi.classList.add("visible");pi.textContent="Release to refresh"}else if(diff>20){pi.classList.add("visible");pi.textContent="Pull to refresh"}},{passive:true});
 window.addEventListener("touchend",function(){if(!pulling)return;pulling=false;var pi=document.getElementById("pullIndicator");if(pi.textContent.includes("Release")){pi.textContent="Refreshing...";setTimeout(function(){pi.classList.remove("visible");showToast("Feed updated")},1200)}else{pi.classList.remove("visible")}},{passive:true});
-
-// KEYBOARD
 document.addEventListener("keydown",function(e){if(e.key==="Escape"){closeArticle();closeStory()}});
 
-// INIT
+// ===== ONE-TAP PHOTO EDITOR =====
+var editPresets=[
+{name:"Original",params:{}},
+{name:"Cinematic",params:{contrast:25,saturation:-10,warmth:15,vignette:30}},
+{name:"Teal&Orange",params:{contrast:20,saturation:15,warmth:25,vignette:20}},
+{name:"Noir",params:{contrast:40,saturation:-100,vignette:40}},
+{name:"Vintage",params:{contrast:-10,saturation:-20,warmth:30,vignette:35}},
+{name:"Faded",params:{contrast:-25,saturation:-15,warmth:10,vignette:10}},
+{name:"Portrait",params:{contrast:10,saturation:5,warmth:8,exposure:5}},
+{name:"Landscape",params:{contrast:15,saturation:25,warmth:-5,sharpness:30}},
+{name:"Matte",params:{contrast:-15,saturation:-5,warmth:12,vignette:15}},
+{name:"Cool Blue",params:{contrast:10,saturation:5,warmth:-30}},
+{name:"Warm Sun",params:{contrast:5,saturation:10,warmth:35,exposure:8}},
+{name:"Dramatic",params:{contrast:45,saturation:-5,sharpness:40,vignette:50}}
+];
+var editCanvas,editCtx,editOriginalImg,editCurrentPreset=0,editImgW,editImgH;
+
+function initEdit(){
+ // Render preset thumbnails
+ var pc=document.getElementById("editPresets");
+ if(pc.children.length===0){
+  pc.innerHTML=editPresets.map(function(p,i){
+   return '<div class="preset-card'+(i===0?" active":"")+'" data-preset="'+i+'"><div class="preset-thumb"><canvas width="72" height="72" id="thumb'+i+'"></canvas></div><div class="preset-name">'+p.name+'</div></div>'
+  }).join("");
+  // Draw thumbnails when image loaded
+  if(editOriginalImg){drawAllThumbs()}
+ }
+}
+
+document.addEventListener("click",function(e){
+ var ps=e.target.closest("[data-preset]");
+ if(ps){
+  document.querySelectorAll(".preset-card").forEach(function(c){c.classList.remove("active")});
+  ps.classList.add("active");
+  editCurrentPreset=parseInt(ps.dataset.preset);
+  applyPresetToSliders(editCurrentPreset);
+  applyEdit();
+ }
+});
+
+function applyPresetToSliders(idx){
+ var p=editPresets[idx].params;
+ var map={exposure:0,contrast:0,saturation:0,warmth:0,sharpness:0,vignette:0};
+ for(var k in p){map[k]=p[k]}
+ ["exposure","contrast","saturation","warmth","sharpness","vignette"].forEach(function(k){
+  var sl=document.getElementById("s-"+k);var vl=document.getElementById("v-"+k);
+  if(sl){sl.value=map[k]||0;vl.textContent=map[k]||0}
+ });
+}
+
+function triggerEditUpload(){document.getElementById("editFileInput").click()}
+function handleEditUpload(e){
+ var file=e.target.files[0];if(!file)return;
+ var reader=new FileReader();
+ reader.onload=function(ev){
+  var img=new Image();
+  img.onload=function(){
+   editOriginalImg=img;
+   // Calc size
+   var maxW=400;
+   var ratio=img.height/img.width;
+   editImgW=Math.min(maxW,img.width);
+   editImgH=Math.round(editImgW*ratio);
+   // Create main canvas
+   editCanvas=document.createElement("canvas");
+   editCanvas.width=editImgW;editCanvas.height=editImgH;
+   editCanvas.className="edit-preview-canvas";
+   editCtx=editCanvas.getContext("2d");
+   // Hide upload, show tools
+   var uw=document.getElementById("editUploadWrap");
+   uw.classList.add("has-image");
+   uw.style.display="none";
+   document.getElementById("editTools").style.display="block";
+   // Insert canvas before presets
+   var ts=document.getElementById("editTools");
+   ts.insertBefore(editCanvas,ts.firstChild);
+   // Draw original
+   editCtx.drawImage(editOriginalImg,0,0,editImgW,editImgH);
+   drawAllThumbs();
+   applyEdit();
+  };
+  img.src=ev.target.result;
+ };
+ reader.readAsDataURL(file);
+}
+
+function drawAllThumbs(){
+ editPresets.forEach(function(p,i){
+  var tc=document.getElementById("thumb"+i);
+  if(!tc)return;
+  var tctx=tc.getContext("2d");
+  var tw=72,th=72;
+  tctx.clearRect(0,0,tw,th);
+  if(editOriginalImg){
+   // Cover fit
+   var ir=editOriginalImg.height/editOriginalImg.width;
+   var dw,dh,dx,dy;
+   if(ir>1){dw=tw;dh=tw*ir;dx=0;dy=(th-dh)/2}else{dh=th;dw=th/ir;dx=(tw-dw)/2;dy=0}
+   tctx.drawImage(editOriginalImg,dx,dy,dw,dh);
+   applyFilterToCtx(tctx,tw,th,p.params);
+  }
+ });
+}
+
+function applyEdit(){
+ if(!editCtx||!editOriginalImg)return;
+ editCtx.clearRect(0,0,editImgW,editImgH);
+ editCtx.drawImage(editOriginalImg,0,0,editImgW,editImgH);
+ var params={
+  exposure:parseFloat(document.getElementById("s-exposure").value),
+  contrast:parseFloat(document.getElementById("s-contrast").value),
+  saturation:parseFloat(document.getElementById("s-saturation").value),
+  warmth:parseFloat(document.getElementById("s-warmth").value),
+  sharpness:parseFloat(document.getElementById("s-sharpness").value),
+  vignette:parseFloat(document.getElementById("s-vignette").value)
+ };
+ ["exposure","contrast","saturation","warmth","sharpness","vignette"].forEach(function(k){
+  var vl=document.getElementById("v-"+k);
+  if(vl)vl.textContent=params[k]
+ });
+ applyFilterToCtx(editCtx,editImgW,editImgH,params);
+}
+
+function applyFilterToCtx(ctx,w,h,p){
+ try{
+  var imgData=ctx.getImageData(0,0,w,h);
+  var d=imgData.data;
+  var exp=(p.exposure||0)/100;
+  var con=(p.contrast||0)/100;
+  var sat=(p.saturation||0)/100;
+  var warm=(p.warmth||0)/100*30;
+  var sharp=(p.sharpness||0)/100;
+  var vig=(p.vignette||0)/100;
+  // Save original for sharpening
+  var orig=null;
+  if(sharp>0){orig=new Uint8ClampedArray(d)}
+  for(var i=0;i<d.length;i+=4){
+   var r=d[i],g=d[i+1],b=d[i+2];
+   // Exposure
+   if(exp!==0){r+=exp*128;g+=exp*128;b+=exp*128}
+   // Contrast
+   if(con!==0){var cf=1+con;r=(r-128)*cf+128;g=(g-128)*cf+128;b=(b-128)*cf+128}
+   // Warmth
+   if(warm!==0){r+=warm;b-=warm}
+   // Saturation
+   if(sat!==0){
+    var gray=0.299*r+0.587*g+0.114*b;
+    r=gray+(r-gray)*(1+sat);
+    g=gray+(g-gray)*(1+sat);
+    b=gray+(b-gray)*(1+sat);
+   }
+   d[i]=Math.max(0,Math.min(255,r));
+   d[i+1]=Math.max(0,Math.min(255,g));
+   d[i+2]=Math.max(0,Math.min(255,b));
+  }
+  // Sharpen (simple convolution)
+  if(sharp>0&&orig){
+   var amount=sharp*0.5;
+   for(var y=1;y<h-1;y++){
+    for(var x=1;x<w-1;x++){
+     var idx=(y*w+x)*4;
+     for(var c=0;c<3;c++){
+      var center=orig[idx+c];
+      var top=orig[idx-w*4+c];
+      var bottom=orig[idx+w*4+c];
+      var left=orig[idx-4+c];
+      var right=orig[idx+4+c];
+      var sharpened=center+(center-(top+bottom+left+right)/4)*amount;
+      d[idx+c]=Math.max(0,Math.min(255,sharpened));
+     }
+    }
+  }
+  }
+  // Vignette
+  if(vig>0){
+   var cx=w/2,cy=h/2;
+   var maxDist=Math.sqrt(cx*cx+cy*cy);
+   for(var y=0;y<h;y++){
+    for(var x=0;x<w;x++){
+     var idx=(y*w+x)*4;
+     var dist=Math.sqrt((x-cx)*(x-cx)+(y-cy)*(y-cy))/maxDist;
+     var factor=1-vig*dist*dist;
+     d[idx]*=factor;d[idx+1]*=factor;d[idx+2]*=factor;
+    }
+   }
+  }
+  ctx.putImageData(imgData,0,0);
+ }catch(e){}
+}
+
+function resetEdit(){
+ ["exposure","contrast","saturation","warmth","sharpness","vignette"].forEach(function(k){
+  var sl=document.getElementById("s-"+k);var vl=document.getElementById("v-"+k);
+  if(sl){sl.value=0;vl.textContent=0}
+ });
+ document.querySelectorAll(".preset-card").forEach(function(c){c.classList.remove("active")});
+ var pc=document.querySelector('[data-preset="0"]');
+ if(pc)pc.classList.add("active");
+ editCurrentPreset=0;
+ applyEdit();
+ showToast("Reset to original");
+}
+
+function saveEdit(){
+ if(!editCanvas)return;
+ try{
+  var link=document.createElement("a");
+  link.download="longchuang-edit-"+Date.now()+".png";
+  link.href=editCanvas.toDataURL("image/png");
+  link.click();
+  showToast("Photo saved to your device");
+ }catch(e){showToast("Save failed, please try again")}
+}
+
 renderStories();
 renderFeed();
 </script>
